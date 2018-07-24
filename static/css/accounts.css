@@ -23,8 +23,16 @@ body {
     padding: 12px 20px;
     /*display: inline-block;*/
     border: 1px solid #ccc;
-    background: papayawhip;
+    background: green;
     border-radius: 4px;
+}
+
+.paragraph {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-decoration-color: #a41515;
+    background-color: #a41515;
+    font-size: xx-large;
 }
 
 h2 {
