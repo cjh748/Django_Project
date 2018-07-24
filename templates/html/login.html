@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TextLeak Sign-in</title>
+    <link rel="stylesheet" href="{% static "css/accounts.css" %}"/>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/datalegreya" type="text/css"/>
+</head>
+<body>
+<h1>t|1e|2x|2t|1l|2e|3a|2k|3</h1>
+<h2>Welcome to TextLeak Plagiarism Detector!</h2>
+<h3>Please input your login details: </h3>
+        {% if form.errors %}
+        <P>Incorrect details!</P>
+        {% endif %}
+<div class="container1">
+    <form id="login" method="POST" action="">
+        {{ form.as_p }}
+        {% csrf_token %}
+        Username:
+        <input type="text" name="username" value="" id="username" size="50"/>
+        <br/>
+        Password:
+        <input type="password" name="password" value="" id="password" size="50"/>
+        <br/>
+        <input type="submit" name="submit" value="Log In">
+        <input type="button" name="signup" onclick="location.href='http://localhost:8000/signup/';" value="Sign-up">
+    </form>
+</div>
+</body>
+</html>

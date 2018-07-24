@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>TextLeak</title>
+    <link rel="stylesheet" href="{%  static "css/menu.css" %}"/>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/datalegreya" type="text/css"/>
+</head>
+<body>
+
+<h1>t|1e|2x|2t|1l|2e|3a|2k|3</h1>
+<h2>Please choose the type of plagiarism detection you require: </h2>
+
+<div class="container">
+    <input type="button" onclick="location.href='http://127.0.0.1:8000/source_plag/';"
+           class="btn btn-info btn-lg" value="Source Plagiarism" />
+    <input type="button" onclick="location.href='http://google.com';" class="btn btn-info round-btn-lg" value="Internal Plagiarism" />
+    <input type="button" onclick="location.href='http://google.com';" class="btn btn-info btn-lg" value="External Plagiarism" />
+    <h5><strong><em>Please upload all documents as .txt files.</em></strong></h5>
+</div>
+
+<div class="information">
+    <ul>
+        <li>
+            <strong><em>Source Plagiarism</em></strong> - Upload a single source document and a corpus of text documents. TextLeak will analyse the similarity of each individual piece of text text against the source text.
+        </li>
+        <li>
+            <strong><em>Internal Plagiarism</em></strong> - Upload a corpus of text documents. TextLeak will analyse the similarity of each individual piece of text against all other pieces of text in the corpus.
+        </li>
+        <li>
+            <strong><em>External Plagiarism</em></strong> - Upload a corpus of text documents. TextLeak will analyse different topics found in the pieces of text and determine the source similarity through each topic's Wikipedia page.
+        </li>
+    </ul>
+</div>
+</body>
+</html>

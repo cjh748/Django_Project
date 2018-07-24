@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>signup</title>
+    <link rel="stylesheet" href="{%  static "css/accounts.css" %}"/>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/datalegreya" type="text/css"/>
+</head>
+<body>
+<h1>t|1e|2x|2t|1l|2e|3a|2k|3</h1>
+<h2>Registration Page</h2>
+<h3>Please input your details to get started: </h3>
+<div class="container">
+    <form method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+        <input type="submit" class="btn btn-primary" value="Sign-up">
+        <input type="submit" class="btn btn-primary" onclick="location.href='http://localhost:8000';"  value="Cancel">
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+h5 {
+    margin-top: 0;
+    text-align: center;
+    font-family: 'DatalegreyaDot', sans-serif;
+    font-weight: bolder;
+    font-style: normal;
+    color: black;
+    font-size: 30px;
+}
+
+h2 {
+    margin-top: 0;
+    text-align: center;
+    font-family: 'DatalegreyaDot', sans-serif;
+    font-weight: bolder;
+    font-style: normal;
+    color: red;
+    font-size: 50px;
+}
+
+h1 {
+    margin-top: 0;
+    padding-top: 0;
+    background: dimgrey;
+    text-align: center;
+    font-family: 'DatalegreyaDot', sans-serif;
+    font-weight: bolder;
+    font-style: normal;
+    color: antiquewhite;
+    font-size: 130px;
+}
+
+body input[type=button] {
+    font-family: 'Segoe UI', 'Open Sans', sans-serif, Arial;
+    background-color: #006969; /* Green */
+    border: none;
+    color: #fff;
+    padding: 8px 40px;
+    margin: 20px;
+    text-align: center;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+body {
+    background: floralwhite;
+}
+
+.information {
+    margin-bottom: 0;
+    padding: 10px;
+    color: #ffffff;
+    text-decoration-color: #a41515;
+    background: dimgrey;
+}
+
+.container {
+    text-align: center;
+}
+
+.center-element {
+    width: 100px;
+    text-align: left;
+}
+
+p {
+    font-family: 'DatalegreyaDot', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
