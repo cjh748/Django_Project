@@ -11,9 +11,16 @@ class SignUpForm(forms.ModelForm):
     bot_protect = forms.CharField(required=False, widget=forms.HiddenInput,
                                   validators=[validators.MaxLengthValidator(0)])
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        # check and raise error if other user already exists with given email
+        is_exists = User.objects.filter(email=email).exists()
+        if is_exists:
+            raise forms.ValidationError("User already exists with this email")
+        return email
+
     class Meta:
         model = User
-        labels = {}
         fields = ('first_name', 'last_name', 'username', 'email', 'password')
 
     def save(self, commit=True):
@@ -22,6 +29,11 @@ class SignUpForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+    def clean(self):
+        data = self.cleaned_data
+        # use your logic for non field errors
+        return data
 
 
 class LogInForm(forms.Form):

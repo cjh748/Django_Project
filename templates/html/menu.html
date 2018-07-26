@@ -6,11 +6,31 @@
     <title>TextLeak</title>
     <link rel="stylesheet" href="{%  static "css/menu.css" %}"/>
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/datalegreya" type="text/css"/>
+    <style>
+.jumbotron{
+    background-color:#2E2D88;
+    color:white;
+}
+/* Adds borders for tabs */
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+.nav-tabs {
+    margin-bottom: 0;
+}
+</style>
 </head>
 <body>
 
-<h1>t|1e|2x|2t|1l|2e|3a|2k|3</h1>
+<h1>
+    t|1e|2x|2t|1l|2e|3a|2k|3
+    <input type="button" class="logout" onclick="{% url 'logout' %}" value="Log out">
+</h1>
 <h2>Please choose the type of plagiarism detection you require: </h2>
+
 
 <div class="container">
     <input type="button" onclick="location.href='http://127.0.0.1:8000/source_plag/';"

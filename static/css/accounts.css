@@ -30,8 +30,8 @@ body {
 .paragraph {
     padding-left: 20px;
     padding-right: 20px;
-    text-decoration-color: #a41515;
-    background-color: #a41515;
+    /*text-decoration-color: #006969;*/
+    background-color: bisque;
     font-size: xx-large;
 }
 

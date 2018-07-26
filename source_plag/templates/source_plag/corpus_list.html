@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+     <a href="{% url 'create-corpus' %}">Create New Corpus</a>
+    <a href="{% url 'create-original' %}">Create New Original</a> |
+    <a href="{% url 'create-suspicious' %}">Create New Suspicious</a>
+    <table>
+        <tr>
+            <th>Name</th>
+        </tr>
+        {% for object in object_list %}
+            <tr>
+                <td><a href="{{ object.get_absolute_url }}">{{ object.corpus_name }}</a></td>
+
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
