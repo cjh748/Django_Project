@@ -1,7 +1,6 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from accounts.forms import SignUpForm
-from django.contrib.auth import login
 from django.conf import settings
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_text
@@ -11,8 +10,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
-from accounts.models import User
+#from accounts.models import User
 
 
 def index(request):
@@ -35,7 +35,7 @@ def sign_up(request):
 
         else:
             print("form invalid")
-    return render(request, 'html/sign_up.html', {'form': form})
+    return render(request, 'html/sign_up.html', {'register_form': form})
 
 
 def log_in(request):

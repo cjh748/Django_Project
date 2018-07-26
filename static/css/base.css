@@ -1,0 +1,26 @@
+.page-header {
+    background: url(http://rehsystems.com/wp-content/uploads/2014/11/TechSolutionsBanner.jpg) no-repeat;
+    margin-top: 0;
+    text-align: center;
+    width: 100%;
+}
+.subhead {
+    margin-top: 0;
+    position: relative;
+    font-family: 'DatalegreyaDot', sans-serif;
+    color: #fff;
+}
+.page-title {
+    position: center;
+    font-family: 'DatalegreyaDot', sans-serif;
+    font-size: 150px;
+    line-height: 1;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+
+h3{
+    font-family: 'DatalegreyaDot', fantasy;
+    font-weight: bolder;
+}

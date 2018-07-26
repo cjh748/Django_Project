@@ -7,6 +7,10 @@ def menu(request):
     return render(request, 'html/menu.html')
 
 
-def logoff(request):
+# def log_out(request):
+#     return render(request, 'html/login.html', {'logout': logout(request)})
+
+
+def logout_view(request):
     logout(request)
     return redirect('login')

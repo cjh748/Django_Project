@@ -13,7 +13,7 @@
 <h3>Please input your details to get started: </h3>
 <div class="container">
     <form method="POST" enctype="multipart/form-data">
-            {{ form.as_p }}
+            {{ register_form.as_p }}
             {% csrf_token %}
         <input type="submit" class="btn btn-primary" value="Sign-up">
         <input type="submit" class="btn btn-primary" onclick="location.href='http://localhost:8000';"  value="Cancel">
