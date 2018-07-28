@@ -8,7 +8,6 @@ class Corpus(models.Model):
     user = models.ForeignKey(User, on_delete=CASCADE, null=True)
     corpus_name = models.CharField(max_length=50, unique=True)
 
-
     def get_absolute_url(self):
         return reverse('show-corpus', kwargs={'pk': self.pk})
 
@@ -21,6 +20,10 @@ class Original(models.Model):
     original_file_name = models.CharField(max_length=50)
     original_file = models.FileField()
 
+    def display_text_file_orig(self):
+        with open(self.original_file.path) as fp:
+            return fp.read().replace('\n', '')
+
     def __str__(self):
         return self.original_file_name
 
@@ -29,6 +32,10 @@ class Suspicious(models.Model):
     corpus = models.ForeignKey(Corpus, on_delete=CASCADE)
     suspicious_file_names = models.CharField(max_length=50, unique=True)
     suspicious_file = models.FileField()
+
+    def display_text_file_sus(self):
+        with open(self.suspicious_file.path) as fp:
+            return fp.read().replace('\n', '')
 
     def __str__(self):
         return self.suspicious_file_names

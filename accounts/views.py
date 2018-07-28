@@ -1,6 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from accounts.forms import SignUpForm
+from django.contrib.auth.forms import forms as login_form
 from django.conf import settings
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_text
@@ -19,6 +20,14 @@ def index(request):
     return render(request, 'html/index.html')
 
 
+def to_login_page(request):
+    return render(request, 'html/login.html')
+
+
+def to_register_page(request):
+    return render(request, 'html/sign_up.html')
+
+
 def sign_up(request):
     form = SignUpForm
     if request.method == 'POST':
@@ -35,7 +44,7 @@ def sign_up(request):
 
         else:
             print("form invalid")
-    return render(request, 'html/sign_up.html', {'register_form': form})
+    return render(request, 'html/sign_up.html')
 
 
 def log_in(request):

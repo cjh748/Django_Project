@@ -5,19 +5,50 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from source_plag.forms import UploadFileForm
 from .models import Corpus, Original, Suspicious
+from nltk import tokenize
 
 
 def source_plagiarism(request):
     return render(request, 'html/source_plag.html')
 
 
+def start_detection(request):
+    return render(request, 'source_plag/start_plag.html')
+
+
+class StartDetectionView(DetailView):
+    model = Corpus
+    success_url = reverse_lazy('start-detection')
+
+
 class CorpusDetailView(DetailView):
     model = Corpus
 
     def get_context_data(self, **kwargs):
+        context = super(CorpusDetailView, self).get_context_data(**kwargs)
+        context['original_list'] = self.get_object().original_set.all
+        context['suspicious_list'] = self.get_object().suspicious_set.all
+        return context
+
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     orig_file = self.get_object().original_set.all
+    #     sus_file = self.get_object().suspicious_set.all
+    #     context['original_file'] = orig_file
+    #     context['suspicious_file'] = sus_file
+    #     return context
+
+
+class TextPreProcessing(DetailView):
+    model = Corpus
+
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        file =  self.get_object().original_set.all().first().original_file
-        context['original_text'] = file.read().decode('utf-8')
+        orig_file = self.get_object().original_set.all
+        sus_file = self.get_object().suspicious_set.all
+        context['original_file'] = orig_file
+        context['suspicious_file'] = sus_file
         return context
 
 
@@ -41,7 +72,7 @@ class CorpusCreateView(CreateView):
         return HttpResponseRedirect(self.success_url)
 
 
-class CreateOriginalView(CreateView): #DeleteView #UpdateView
+class CreateOriginalView(CreateView):  # DeleteView #UpdateView
     model = Original
     template_name = 'source_plag/corpus_form.html'
     fields = ['corpus', 'original_file_name', 'original_file']
@@ -54,18 +85,4 @@ class CreateSuspiciousView(CreateView):
     model = Suspicious
     fields = ['corpus', 'suspicious_file_names', 'suspicious_file']
 
-
-
-# def create_corpus(request):
-#
-
-
-# def upload_file(request):
-#     if request.method == 'POST':
-#         form = UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             handle_uploaded_file(request.FILES['file'])
-#             return HttpResponseRedirect('/success/url/')
-#     else:
-#         form = UploadFileForm()
-#     return render_to_response('upload.html', {'form': form})
+    success_url = reverse_lazy('show-corpus')

@@ -1,74 +1,28 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>TextLeak</title>
-    <link rel="stylesheet" href="{% static "css/menu.css" %}"/>
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/datalegreya" type="text/css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <style>
-        .jumbotron {
-            background-color: #2E2D88;
-            color: white;
-        }
-
-        /* Adds borders for tabs */
-        .tab-content {
-            border-left: 1px solid #ddd;
-            border-right: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-            padding: 10px;
-        }
-
-        .nav-tabs {
-            margin-bottom: 0;
-        }
-    </style>
-</head>
-<body>
-
-<h1>
-    t|1e|2x|2t|1l|2e|3a|2k|3
-    <div>
-        {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="btn btn-default">Logout</a>
-        {% endif %}
+{% extends 'html/base.html' %}
+{% load static %}
+{% block add_head %}
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock %}
+{% block logout %}
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="button" type="button"
+                   style="vertical-align:middle; background-color: lightseagreen"><span>Logout</span></a>
+            {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="jumbotron" style="margin: 20px; padding-top: 5px;">
+        <h1 align="center" style="font-family: DatalegreyaDot, fantasy;font-size: 40px ; color: red">Please choose the
+            type of plagiarism detection you require: </h1>
+        <div align="center">
+            <a href="{% url 'source_plagiarism' %}"><input type="button"
+                                                           class="btn btn-default btn-rounded waves-effect waves-light"
+                                                           value="Source Plagiarism"/></a>
+            <a href="#"><input type="button"
+                               class="btn btn-default btn-rounded waves-effect waves-light"
+                               value="Internal Plagiarism"/></a>
+            <a href="#"><input type="button"
+                               class="btn btn-default btn-rounded waves-effect waves-light"
+                               value="External Plagiarism"/></a>
+        </div>
     </div>
-</h1>
-<h2>Please choose the type of plagiarism detection you require: </h2>
-
-
-<div class="container">
-    <input type="button" onclick="location.href='http://127.0.0.1:8000/source_plag/';"
-           class="btn btn-info btn-lg" value="Source Plagiarism"/>
-    <input type="button" onclick="location.href='http://google.com';" class="btn btn-info round-btn-lg"
-           value="Internal Plagiarism"/>
-    <input type="button" onclick="location.href='http://google.com';" class="btn btn-info btn-lg"
-           value="External Plagiarism"/>
-    <h5><strong><em>Please upload all documents as .txt files.</em></strong></h5>
-</div>
-
-<div class="information">
-    <ul>
-        <li>
-            <strong><em>Source Plagiarism</em></strong> - Upload a single source document and a corpus of text
-            documents. TextLeak will analyse the similarity of each individual piece of text text against the source
-            text.
-        </li>
-        <li>
-            <strong><em>Internal Plagiarism</em></strong> - Upload a corpus of text documents. TextLeak will analyse the
-            similarity of each individual piece of text against all other pieces of text in the corpus.
-        </li>
-        <li>
-            <strong><em>External Plagiarism</em></strong> - Upload a corpus of text documents. TextLeak will analyse
-            different topics found in the pieces of text and determine the source similarity through each topic's
-            Wikipedia page.
-        </li>
-    </ul>
-</div>
-</body>
-</html>
+{% endblock %}

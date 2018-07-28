@@ -20,7 +20,8 @@
     text-align: center;
 }
 
-h3{
+#registered, #welcome{
     font-family: 'DatalegreyaDot', fantasy;
     font-weight: bolder;
+    text-align: center;
 }

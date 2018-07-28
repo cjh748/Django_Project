@@ -1,16 +1,25 @@
 {% extends "html/base.html" %}
+{% load static %}
+{% block add_head %}
+    <link rel="stylesheet" href="{% static "css/source_plag_list.css" %}">
+{% endblock %}
 {% block content %}
-     <a href="{% url 'create-corpus' %}">Create New Corpus</a>
+    <a href="{% url 'create-corpus' %}">Create New Corpus</a>
     <a href="{% url 'create-original' %}">Create New Original</a> |
     <a href="{% url 'create-suspicious' %}">Create New Suspicious</a>
     <table>
-        <tr>
-            <th>Name</th>
-        </tr>
         {% for object in object_list %}
             <tr>
-                <td><a href="{{ object.get_absolute_url }}">{{ object.corpus_name }}</a></td>
-
+                <th>Corpus Name</th>
+                <td><a href="{{ object.get_absolute_url }}">{{ object.corpus_name }}</a> </td>
+            </tr>
+            <tr>
+                <th>Original Files</th>
+                <td>{{ object.user }}</td>
+            </tr>
+            <tr>
+                <th>Suspicious Files</th>
+                <td>{{ object.suspicious_filenames }}</td>
             </tr>
         {% endfor %}
     </table>

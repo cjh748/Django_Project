@@ -1,27 +1,47 @@
 {% extends 'html/base.html' %}
+{% load static %}
 <!DOCTYPE html>
+{% block add_head %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
 <body>
-{#<h1>t|1e|2x|2t|1l|2e|3a|2k|3</h1>#}
 {% block content %}
     <div class="container">
-        <div class="jumbotron">
-            <p class="paragraph">
-                TextLeak is a easy to use system to detect plagiarism between a piece of source documentation and a
-                corpus,
-                an internal corpus of documents, or plagiarism between a corpus and an external Wikipedia source. The
-                external
-                page will be determined through a process of topic evaluation through scanning the semantics of the
-                documents
-                in the corpus.
-            </p>
+        <div class="row">
+            <span class="rounded">
+            <div class="col-md-6" id="pic-container">
+                <img src="{% static 'images/plagiarism_print.jpg' %}" id="plag_pic">
+                <img src="{% static 'images/docpen_icon22.jpg' %}" id="pen">
+                <div class="jumbotron">
+                    <p id="paragraph">
+                        TextLeak is a easy to use system to detect plagiarism between a piece of source documentation
+                        and a
+                        corpus,
+                        an internal corpus of documents, or plagiarism between a corpus and an external Wikipedia
+                        source.
+                        The
+                        external
+                        page will be determined through a process of topic evaluation through scanning the semantics of
+                        the
+                        documents
+                        in the corpus.
+                    </p>
+                </div>
+            </div>
+                </span>
+            <div class="col-md-6" id="button-column">
+                <h2 id="registered">Have you registered with us?</h2>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'menu' %}" class="btn btn-primary btn-lg btn-block"
+                       id="button">Login</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg btn-block"
+                       id="button">Login</a>
+                {% endif %}
+                <a href="{% url 'signup' %}" class="btn btn-primary btn-lg btn-block"
+                   id="button">Register</a>
+            </div>
         </div>
-    </div>
-
-    <h2>Please sign in to your user profile:</h2>
-    <div style="text-align: center;">
-        <input type="button" class="login_button" name="login" onclick="location.href='http://localhost:8000/login/';"
-               value="Log In">
-        <input type="button" name="signup" onclick="location.href='http://localhost:8000/signup/';" value="Sign-up">
     </div>
 {% endblock %}
 </body>

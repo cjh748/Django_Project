@@ -1,7 +1,6 @@
 {% extends "html/base.html" %}
 {% block content %}
     <form method="post" enctype="multipart/form-data">
-    <h1>bitches</h1>
     {% csrf_token %}
     <table>
         {{ form.as_table }}

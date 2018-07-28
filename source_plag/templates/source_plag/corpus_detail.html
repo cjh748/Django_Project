@@ -1,7 +1,71 @@
 {% extends "html/base.html" %}
-{% block content %}
-    <h1>{{ object.corpus_name }}</h1>
-    Original:
+{% load static %}
+{% block add_head %}
+    <link rel="stylesheet" href="{% static 'css/source_plag_detail.css' %}">
+    {#    <link rel="script" href="{% static 'js/source_plag_detail.js' %}">#}
 
-    {{ original_text }}
+{% endblock %}
+{% block content %}
+    <table class="paleBlueRows">
+        <thead>
+        <tr>
+            <th>Corpus</th>
+            <th>Original Files</th>
+            <th>Suspicious Files</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td>{{ corpus|length }}</td>
+            <td>{{ corpus.original_set.all|length }}</td>
+            <td>{{ corpus.suspicious_set.all|length }}</td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <tr>
+            <td>{{ corpus.corpus_name }}</td>
+            <td>
+                {% for original in corpus.original_set.all %}
+                    <button id="myBtn">{{ original }}</button>
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="close">&times;</span>
+                                <h2>{{ original }}</h2>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ original.display_text_file_orig }}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <h3>Type: Original documentation with predefined source.</h3>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </td>
+            <td>
+                {% for suspicious in corpus.suspicious_set.all %}
+                    <button id="myBtn">{{ suspicious }}</button>
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="close">&times;</span>
+                                <h2>{{ suspicious }}</h2>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ suspicious.display_text_file_sus }}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <h3>Type: Original documentation with predefined source.</h3>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <a href="{% url 'start-detection' %}" class="button" type="button"
+       style="vertical-align:middle; background-color: lightseagreen"><span>Begin Detecting</span></a>
+    <script src="{% static 'js/source_plag_detail.js' %}"></script>
 {% endblock %}
