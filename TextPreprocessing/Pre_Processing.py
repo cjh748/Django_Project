@@ -1,10 +1,10 @@
 import string
 import re
 import nltk
-#from enchant.checker import SpellChecker
 from collections import Counter
 #from Text_Pre_Processing import Norvig_Spell_Check
 #WORDS = Counter(Norvig_Spell_Check.words(open('big.txt', encoding='Latin-1').read()))
+#from enchant.checker import SpellChecker
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
@@ -45,8 +45,7 @@ def append_stopwords(text):
 
 
 def remove_punctuation(text):
-    punkt_text = "".join((char for char in text
-                          if char not in string.punctuation))
+    punkt_text = "".join((char for char in text if char not in string.punctuation))
     return punkt_text
 
 
@@ -62,24 +61,24 @@ def lower_case(text):
     return text.lower()
 
 
-def spell_checker(text):
-    checker = SpellChecker("en_UK", "en_US")
-    checker.set_text(text)
-    for error in checker:
-        suggested_word = error.suggest()[0]
-        error.replace(suggested_word)  # Look here
-    spell_checked = checker.get_text()
-    return spell_checked
-
-
-
-def spell_checker2(text):
-    x = tokenization(text)
-    spell_checked = ''
-    for word in x:
-        word = word.replace(word, Norvig_Spell_Check.correction(word))
-        spell_checked += word + " "
-    return spell_checked
+# def spell_checker(text):
+#     checker = SpellChecker("en_UK", "en_US")
+#     checker.set_text(text)
+#     for error in checker:
+#         suggested_word = error.suggest()[0]
+#         error.replace(suggested_word)  # Look here
+#     spell_checked = checker.get_text()
+#     return spell_checked
+#
+#
+#
+# def spell_checker2(text):
+#     x = tokenization(text)
+#     spell_checked = ''
+#     for word in x:
+#         word = word.replace(word, Norvig_Spell_Check.correction(word))
+#         spell_checked += word + " "
+#     return spell_checked
 
 
 def apply_preproc_internal(suspicious_file, suspicious_filename):

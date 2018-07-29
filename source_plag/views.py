@@ -1,3 +1,5 @@
+import string
+
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView
@@ -5,20 +7,20 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from source_plag.forms import UploadFileForm
 from .models import Corpus, Original, Suspicious
-from nltk import tokenize
+from source_plag.Python_Code import Source_Main, Source_N_Gram_Matching, Source_TFIDF_gensim, Source_Wordnet_Synsets
 
 
 def source_plagiarism(request):
     return render(request, 'html/source_plag.html')
 
 
-def start_detection(request):
-    return render(request, 'source_plag/start_plag.html')
+#def start_detection(request):
+#    return render(request, 'source_plag/start_plag.html')
 
 
-class StartDetectionView(DetailView):
-    model = Corpus
-    success_url = reverse_lazy('start-detection')
+#class StartDetectionView(DetailView):
+#    model = Corpus
+#    success_url = reverse_lazy('start-detection')
 
 
 class CorpusDetailView(DetailView):
@@ -86,3 +88,35 @@ class CreateSuspiciousView(CreateView):
     fields = ['corpus', 'suspicious_file_names', 'suspicious_file']
 
     success_url = reverse_lazy('show-corpus')
+
+
+def start_detection(request, corpus_name):
+    corpus_obj = Corpus.objects.get(corpus_name=corpus_name)
+    original_obj = Original.objects.filter(corpus=corpus_obj)
+    original_data = []
+    original_filenames = []
+    for orig in original_obj:
+        print(orig)
+        original_filenames.append(orig)
+        original_data.append(orig.display_text_file_orig)
+
+    suspicious_data = []
+    suspicious_filenames = []
+    suspicious_obj = Suspicious.objects.filter(corpus=corpus_obj)
+    for sus in suspicious_obj:
+        print(sus.display_text_file_sus())
+        suspicious_filenames.append(sus)
+        suspicious_data.append(sus.display_text_file_sus())
+
+    ## FIRST EXTERNAL METHOD
+    pre_process = Source_Main.TFIDF_pre_proc(original_data[0], suspicious_data)
+
+    ## SECOND EXTERNAL METHOD
+    ngram = Source_N_Gram_Matching.all_n_gram_execution(original_data[0], suspicious_data, original_filenames[0], suspicious_filenames)
+
+    return render(request, template_name='source_plag/start_plag.html', context={'pre_process': pre_process})
+
+
+def remove_punctuation(text):
+    punkt_text = "".join((char for char in text if char not in string.punctuation))
+    return punkt_text

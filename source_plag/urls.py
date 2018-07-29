@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^list$', views.CorpusListView.as_view(), name='list-corpus'),
     url(r'^original/create-new$', views.CreateOriginalView.as_view(), name='create-original'),
     url(r'^suspicious/create-new$', views.CreateSuspiciousView.as_view(), name='create-suspicious'),
-    url(r'^start-detection$', views.start_detection, name='start-detection')
+    url(r'^start-detection/(?P<corpus_name>\w+)$', views.start_detection, name='start-detection')
 ]

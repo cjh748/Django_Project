@@ -45,8 +45,8 @@
             </td>
             <td>
                 {% for suspicious in corpus.suspicious_set.all %}
-                    <button id="myBtn">{{ suspicious }}</button>
-                    <div id="myModal" class="modal">
+                    <button id="myBtn1">{{ suspicious }}</button>
+                    <div id="myModal1" class="modal">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <span class="close">&times;</span>
@@ -65,7 +65,8 @@
         </tr>
         </tbody>
     </table>
-        <a href="{% url 'start-detection' %}" class="button" type="button"
+    {{ corpus }}
+        <a href="{% url 'start-detection' corpus.corpus_name %}" class="button" type="button"
        style="vertical-align:middle; background-color: lightseagreen"><span>Begin Detecting</span></a>
     <script src="{% static 'js/source_plag_detail.js' %}"></script>
 {% endblock %}

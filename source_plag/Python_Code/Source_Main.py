@@ -1,30 +1,7 @@
-import codecs
-import os
-from source_plag.Python_Code import Source_TFIDF_gensim, Source_N_Gram_Matching, Source_Wordnet_Synsets
 from TextPreprocessing import Pre_Processing
-
-# ====================
-# DOCUMENT PREPARATION
-# ====================
-original_filename = "orig_taska.txt"
-original_file = open("C:/Users/Chris/Documents/UoB_MSc_Computer_Science/"
-                     "MSc_Dissertation/cjh748/Corpus_A/Originals/" + original_filename).read()
-suspicious_filenames = os.listdir("C:/Users/Chris/Documents/UoB_MSc_Computer_Science"
-                                  "/MSc_Dissertation/cjh748/Corpus_A/Task_A/")
-suspicious_files = []
-for file in suspicious_filenames:
-    with codecs.open("C:/Users/Chris/Documents/UoB_MSc_Computer_Science/"
-                     "MSc_Dissertation/cjh748/Corpus_A/Task_A/" + file, "r",
-                     encoding='utf-8-sig', errors='ignore') as file_data:
-        open_file = file_data.read()
-        suspicious_files.append(open_file)
-
-
 # ===================
 # File Pre-Processing
 # ===================
-# pre_processed_files = Pre_Processing.apply_preproc_source \
-#     (original_file, suspicious_files, original_filename, suspicious_filenames)
 def WORDNET_pre_proc(original_corpora, suspicious_corpus):
     pre_processed_files = []
     sus = []
@@ -113,24 +90,23 @@ def LCS_pre_proc(original_corpora, suspicious_corpus):
     print("LCS Pre-Processing Complete")
     return pre_processed_files
 
-
-TFIDF_files = TFIDF_pre_proc(original_file, suspicious_files)
-NGRAM_files = NGRAM_pre_proc(original_file, suspicious_files)
-WORDNET_files = WORDNET_pre_proc(original_file, suspicious_files)
-LCS_files = LCS_pre_proc(original_file, suspicious_files)
+# TFIDF_files = TFIDF_pre_proc(original_file, suspicious_files)
+# NGRAM_files = NGRAM_pre_proc(original_file, suspicious_files)
+# WORDNET_files = WORDNET_pre_proc(original_file, suspicious_files)
+# LCS_files = LCS_pre_proc(original_file, suspicious_files)
 
 # ========
 # WordNet
 # ========
-Source_Wordnet_Synsets.execute_WORDNET(original_file, original_filename, suspicious_files, suspicious_filenames)
+# Source_Wordnet_Synsets.execute_WORDNET(original_file, original_filename, suspicious_files, suspicious_filenames)
 
 # ===================================================
 # Term Frequency - Inverse Document Frequency (TFIDF)
 # ===================================================
-TFIDF_final = Source_TFIDF_gensim.TFIDF_execution(TFIDF_files, original_filename, suspicious_filenames)
+# TFIDF_final = Source_TFIDF_gensim.TFIDF_execution(TFIDF_files, original_filename, suspicious_filenames)
 
 # ==============
 # N-Gram Overlap
 # ==============
 
-#Source_N_Gram_Matching.all_n_gram_execution(NGRAM_files[0], NGRAM_files[1], original_filename, suspicious_filenames)
+# Source_N_Gram_Matching.all_n_gram_execution(NGRAM_files[0], NGRAM_files[1], original_filename, suspicious_filenames)
