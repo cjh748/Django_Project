@@ -1,3 +1,5 @@
+import codecs
+
 from django.db import models
 from django.db.models import CASCADE
 from django.contrib.auth.models import User
@@ -21,7 +23,7 @@ class Original(models.Model):
     original_file = models.FileField()
 
     def display_text_file_orig(self):
-        with open(self.original_file.path, encoding='utf-8') as fp:
+        with codecs.open(self.original_file.path, encoding='utf-8', errors='ignore') as fp:
             return fp.read().replace('\n', '')
 
     def __str__(self):
@@ -34,7 +36,7 @@ class Suspicious(models.Model):
     suspicious_file = models.FileField()
 
     def display_text_file_sus(self):
-        with open(self.suspicious_file.path) as fp:
+        with codecs.open(self.suspicious_file.path, encoding='utf-8', errors='ignore') as fp:
             return fp.read().replace('\n', '')
 
     def __str__(self):

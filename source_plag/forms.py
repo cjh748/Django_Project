@@ -7,10 +7,11 @@ class UploadFileForm(forms.Form):
     file = forms.FileField()
 
 class OriginalSelectionForm(forms.Form):
-    def __init__(self,corpus,  *args, **kwargs):
+    def __init__(self,corpus = None,  *args, **kwargs):
         super().__init__(*args, **kwargs)
         #corpus_id = kwargs['corpus_id']
-
-        self.fields['originals'] = forms.ModelChoiceField(queryset = corpus.original_set.all())
-
+        if corpus:
+            self.fields['originals'] = forms.ModelChoiceField(queryset = corpus.original_set.all())
+        else:
+            self.fields['originals'] = forms.ModelChoiceField(queryset = Original.objects.all())
     #originals =  forms.ChoiceField()

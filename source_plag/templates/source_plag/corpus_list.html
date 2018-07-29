@@ -2,25 +2,32 @@
 {% load static %}
 {% block add_head %}
     <link rel="stylesheet" href="{% static "css/source_plag_list.css" %}">
+    <link rel="stylesheet" href="{% static "css/menu.css" %}">
+{% endblock %}
+{% block logout %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="button" type="button"
+           style="vertical-align:middle; background-color: lightseagreen"><span>Logout</span></a>
+    {% endif %}
 {% endblock %}
 {% block content %}
-    <a href="{% url 'create-corpus' %}">Create New Corpus</a>
-    <a href="{% url 'create-original' %}">Create New Original</a> |
-    <a href="{% url 'create-suspicious' %}">Create New Suspicious</a>
-    <table>
+    <div style="text-align: center">
+        <a href="{% url 'create-corpus' %}" class="button" type="button"
+           style="vertical-align:middle; background-color: lightseagreen"><span>Create New Corpus</span></a>
+        <a href="{% url 'create-original' %}" class="button" type="button"
+           style="vertical-align:middle; background-color: purple"><span> Add Original File</span></a>
+        <a href="{% url 'create-suspicious' %}" class="button" type="button"
+           style="vertical-align:middle; background-color: red"><span>Add Suspect File</span></a>
+    </div>
+    <div class="jumbotron" style="text-align: center; margin: 20px; padding: 25px;">
+        <h3 style="font-family: DatalegreyaDot, fantasy; font-size: xx-large;">Please select your desired corpus:</h3>
         {% for object in object_list %}
-            <tr>
-                <th>Corpus Name</th>
-                <td><a href="{{ object.get_absolute_url }}">{{ object.corpus_name }}</a> </td>
-            </tr>
-            <tr>
-                <th>Original Files</th>
-                <td>{{ object.user }}</td>
-            </tr>
-            <tr>
-                <th>Suspicious Files</th>
-                <td>{{ object.suspicious_filenames }}</td>
-            </tr>
+            <ul style="text-align: center; list-style-type: none;         display:inline-block;
+        border:1px solid #000;
+        padding:20px;
+">
+                <li style="text-align: center"><a href="{{ object.get_absolute_url }}">{{ object.corpus_name }}</a></li>
+            </ul>
         {% endfor %}
-    </table>
+    </div>
 {% endblock %}

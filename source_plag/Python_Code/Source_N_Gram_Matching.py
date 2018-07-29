@@ -39,21 +39,24 @@ def single_n_gram_execution(str1, str2, n_gram, original_filename, suspicious_fi
     elif n_gram == 5:
         n_name = 'quingram'
 
-    index = 0
-    # print("===================================================================="
-    #       "=============================")
-    # print("Execution of " + n_name + " overlap for original file: " +
-    #       original_filename[index] + " achieved a similarity score of: ")
-    # print("===================================================================="
-    #       "=============================")
-    index += 1
+    print("===================================================================="
+          "=============================")
+    print("Execution of " , n_name ," overlap for original file: " ,
+          original_filename , " achieved a similarity score of: ")
+    print("===================================================================="
+          "=============================")
 
+    similarities = []
     for i in range(len(str2)):
         similarity_score = similarity_generator(str1, str2[i], n_gram)
-        # print(suspicious_filenames[i] +
-        #       ": " + str(similarity_score) + "%")
+        similarities.append(similarity_score)
+        print(similarity_score)
+
+    return similarities
 
 
 def all_n_gram_execution(str1, str2, original_filename, suspicious_filename):
+    retval = []
     for i in range(1, 6):
-        single_n_gram_execution(str1, str2, i, original_filename, suspicious_filename)
+        retval.append(single_n_gram_execution(str1, str2, i, original_filename, suspicious_filename))
+    return retval

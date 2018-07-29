@@ -2,73 +2,84 @@
 {% load static %}
 {% block add_head %}
     <link rel="stylesheet" href="{% static 'css/source_plag_detail.css' %}">
-    {#    <link rel="script" href="{% static 'js/source_plag_detail.js' %}">#}
-
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock %}
+{% block logout %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="button" type="button"
+           style="vertical-align:middle; background-color: lightseagreen"><span>Logout</span></a>
+    {% endif %}
 {% endblock %}
 {% block content %}
-    <table class="paleBlueRows">
-        <thead>
-        <tr>
-            <th>Corpus</th>
-            <th>Original Files</th>
-            <th>Suspicious Files</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <td>{{ corpus|length }}</td>
-            <td>{{ corpus.original_set.all|length }}</td>
-            <td>{{ corpus.suspicious_set.all|length }}</td>
-        </tr>
-        </tfoot>
-        <tbody>
-        <tr>
-            <td>{{ corpus.corpus_name }}</td>
-            <td>
-                {% for original in corpus.original_set.all %}
-                    <button id="myBtn">{{ original }}</button>
-                    <div id="myModal" class="modal">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <span class="close">&times;</span>
-                                <h2>{{ original }}</h2>
-                            </div>
-                            <div class="modal-body">
-                                <p>{{ original.display_text_file_orig }}</p>
-                            </div>
-                            <div class="modal-footer">
-                                <h3>Type: Original documentation with predefined source.</h3>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </td>
-            <td>
-                {% for suspicious in corpus.suspicious_set.all %}
-                    <button id="myBtn1">{{ suspicious }}</button>
-                    <div id="myModal1" class="modal">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <span class="close">&times;</span>
-                                <h2>{{ suspicious }}</h2>
-                            </div>
-                            <div class="modal-body">
-                                <p>{{ suspicious.display_text_file_sus }}</p>
-                            </div>
-                            <div class="modal-footer">
-                                <h3>Type: Original documentation with predefined source.</h3>
+    <div style="text-align: center">
+        <table class="paleBlueRows">
+            <thead style="   margin:0;
+   padding:0;">
+            <tr>
+                <th>Corpus</th>
+                <th>Original Files</th>
+                <th>Suspicious Files</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td>{{ corpus|length }}</td>
+                <td>{{ corpus.original_set.all|length }}</td>
+                <td>{{ corpus.suspicious_set.all|length }}</td>
+            </tr>
+            </tfoot>
+            <tbody>
+            <tr>
+                <td>{{ corpus.corpus_name }}</td>
+                <td>
+                    {% for original in corpus.original_set.all %}
+                        <button id="myBtn">{{ original }}</button>
+                        <div id="myModal" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="close">&times;</span>
+                                    <h2>{{ original }}</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ original.display_text_file_orig }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <h3>Type: Original documentation with predefined source.</h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for suspicious in corpus.suspicious_set.all %}
+                        <button id="myBtn1">{{ suspicious }}</button>
+                        <div id="myModal1" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="close">&times;</span>
+                                    <h2>{{ suspicious }}</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ suspicious.display_text_file_sus }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <h3>Type: Original documentation with predefined source.</h3>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <a href="{% url 'start-detection' corpus.corpus_name %}" class="button" type="button"
-       style="vertical-align:middle; background-color: lightseagreen"><span>Begin Detecting</span></a>
+    <form action="{% url 'start-detection' %}" method="POST">
 
-    {{ originals_form.as_p }}
+        {{ originals_form.as_p }}
+        {% csrf_token %}
+        <input class="button" type="submit"
+               style="vertical-align:middle; background-color: lightseagreen" value="Begin Detecting"/>
+    </form>
     <script src="{% static 'js/source_plag_detail.js' %}"></script>
 {% endblock %}
