@@ -21,7 +21,7 @@ class Original(models.Model):
     original_file = models.FileField()
 
     def display_text_file_orig(self):
-        with open(self.original_file.path) as fp:
+        with open(self.original_file.path, encoding='utf-8') as fp:
             return fp.read().replace('\n', '')
 
     def __str__(self):

@@ -65,8 +65,10 @@
         </tr>
         </tbody>
     </table>
-    {{ corpus }}
+
         <a href="{% url 'start-detection' corpus.corpus_name %}" class="button" type="button"
        style="vertical-align:middle; background-color: lightseagreen"><span>Begin Detecting</span></a>
+
+    {{ originals_form.as_p }}
     <script src="{% static 'js/source_plag_detail.js' %}"></script>
 {% endblock %}

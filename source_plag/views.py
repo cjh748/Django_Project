@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from source_plag.forms import UploadFileForm
+from source_plag.forms import UploadFileForm, OriginalSelectionForm
 from .models import Corpus, Original, Suspicious
 from source_plag.Python_Code import Source_Main, Source_N_Gram_Matching, Source_TFIDF_gensim, Source_Wordnet_Synsets
 
@@ -30,6 +30,7 @@ class CorpusDetailView(DetailView):
         context = super(CorpusDetailView, self).get_context_data(**kwargs)
         context['original_list'] = self.get_object().original_set.all
         context['suspicious_list'] = self.get_object().suspicious_set.all
+        context['originals_form'] = OriginalSelectionForm(corpus = self.get_object())
         return context
 
 
@@ -98,7 +99,7 @@ def start_detection(request, corpus_name):
     for orig in original_obj:
         print(orig)
         original_filenames.append(orig)
-        original_data.append(orig.display_text_file_orig)
+        original_data.append(orig.display_text_file_orig())
 
     suspicious_data = []
     suspicious_filenames = []
@@ -109,10 +110,10 @@ def start_detection(request, corpus_name):
         suspicious_data.append(sus.display_text_file_sus())
 
     ## FIRST EXTERNAL METHOD
-    pre_process = Source_Main.TFIDF_pre_proc(original_data[0], suspicious_data)
+    pre_process = Source_Main.NGRAM_pre_proc(original_data[0], suspicious_data)
 
     ## SECOND EXTERNAL METHOD
-    ngram = Source_N_Gram_Matching.all_n_gram_execution(original_data[0], suspicious_data, original_filenames[0], suspicious_filenames)
+    ngram = Source_N_Gram_Matching.all_n_gram_execution(pre_process[0], pre_process[1], original_filenames, suspicious_filenames)
 
     return render(request, template_name='source_plag/start_plag.html', context={'pre_process': pre_process})
 
