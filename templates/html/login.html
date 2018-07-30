@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="script" href="{% static 'js/login.js' %}">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock %}
+{% block logout %}
+    <a href="{% url 'list-corpus' %}" class="button" type="button"
+       style="vertical-align:middle; background-color: red; width: 7%;"><span>Home</span></a>
 {% endblock %}
 {% block content %}
     <div class="container">
@@ -34,7 +39,7 @@
                                 <a href="{% url 'signup' %}" class="btn btn-lg btn-primary btn-block">Register</a>
                             </div>
                             <a href="" class="btn btn-link pull-right">Forgot Password?</a>
-                            {% if form.errors%}
+                            {% if form.errors %}
                                 <h5 style="color: red">Login failed, please try again.</h5>
                             {% endif %}
                         </div>

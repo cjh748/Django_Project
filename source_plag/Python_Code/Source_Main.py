@@ -89,24 +89,3 @@ def LCS_pre_proc(original_corpora, suspicious_corpus):
     pre_processed_files.append(sus)
     print("LCS Pre-Processing Complete")
     return pre_processed_files
-
-# TFIDF_files = TFIDF_pre_proc(original_file, suspicious_files)
-# NGRAM_files = NGRAM_pre_proc(original_file, suspicious_files)
-# WORDNET_files = WORDNET_pre_proc(original_file, suspicious_files)
-# LCS_files = LCS_pre_proc(original_file, suspicious_files)
-
-# ========
-# WordNet
-# ========
-# Source_Wordnet_Synsets.execute_WORDNET(original_file, original_filename, suspicious_files, suspicious_filenames)
-
-# ===================================================
-# Term Frequency - Inverse Document Frequency (TFIDF)
-# ===================================================
-# TFIDF_final = Source_TFIDF_gensim.TFIDF_execution(TFIDF_files, original_filename, suspicious_filenames)
-
-# ==============
-# N-Gram Overlap
-# ==============
-
-# Source_N_Gram_Matching.all_n_gram_execution(NGRAM_files[0], NGRAM_files[1], original_filename, suspicious_filenames)

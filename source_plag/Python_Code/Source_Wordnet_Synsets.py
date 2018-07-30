@@ -73,10 +73,9 @@ def symmetric_sentence_similarity(sentence1, sentence2):
 
 
 def execute_WORDNET(original_corpora, original_filename, suspicious_corpus, suspicious_filenames):
-    print()
-    print(original_filename + " WordNet comparison: ")
-    print()
-    for i in range(0, len(suspicious_corpus) - 1):
-        print(suspicious_filenames[i] + ":  " + str(round((symmetric_sentence_similarity
-                                                           (str(original_corpora), str(suspicious_corpus[i]))
-                                                           * 100), 2)) + "%")
+    sym_similarities = []
+    for i in range(0, len(suspicious_corpus)):
+        print("Complete: " + str(i))
+        sym_similarities.append(round(symmetric_sentence_similarity(original_corpora, suspicious_corpus[i]) * 100,2))
+
+    return sym_similarities

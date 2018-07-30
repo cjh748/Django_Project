@@ -5,9 +5,11 @@
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
 {% endblock %}
 {% block logout %}
+    <a href="{% url 'list-corpus' %}" class="button" type="button"
+       style="vertical-align:middle; background-color: red; width: 7%;"><span>Back</span></a>
     {% if user.is_authenticated %}
         <a href="{% url 'logout' %}" class="button" type="button"
-           style="vertical-align:middle; background-color: lightseagreen"><span>Logout</span></a>
+           style="vertical-align:middle; background-color: lightseagreen; width: 7%;"><span>Logout</span></a>
     {% endif %}
 {% endblock %}
 {% block content %}
@@ -51,7 +53,7 @@
                     {% endfor %}
                 </td>
                 <td>
-                    {% for suspicious in corpus.suspicious_set.all %}
+                    {% for suspicious in suspicious_files %}
                         <button id="myBtn1">{{ suspicious }}</button>
                         <div id="myModal1" class="modal">
                             <div class="modal-content">
@@ -73,13 +75,16 @@
             </tbody>
         </table>
     </div>
-
+    <br>
+    <h2 style="text-align: center; font-family: DatalegreyaDot, fantasy">Please select the original file you wish to
+        check the suspicious files against:</h2>
     <form action="{% url 'start-detection' %}" method="POST">
-
-        {{ originals_form.as_p }}
-        {% csrf_token %}
-        <input class="button" type="submit"
-               style="vertical-align:middle; background-color: lightseagreen" value="Begin Detecting"/>
+        <div style="text-align: center">
+            {{ originals_form.as_p }}
+            {% csrf_token %}
+            <input class="button" type="submit"
+                   style="text-align: center; background-color: purple" value="Begin Detecting"/>
+        </div>
     </form>
     <script src="{% static 'js/source_plag_detail.js' %}"></script>
 {% endblock %}

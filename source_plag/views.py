@@ -18,7 +18,8 @@ class CorpusDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CorpusDetailView, self).get_context_data(**kwargs)
-        context['originals_form'] = OriginalSelectionForm(corpus = self.get_object())
+        context['originals_form'] = OriginalSelectionForm(corpus=self.get_object())
+        context['suspicious_files'] = self.get_object().suspicious_set.order_by('id')
         return context
 
 
@@ -63,13 +64,15 @@ def start_detection(request):
         form = OriginalSelectionForm(data=request.POST)
         if form.is_valid():
             original_obj = form.cleaned_data['originals']
-            #corpus_obj = original_obj.corpus
+            # corpus_obj = original_obj.corpus
             request.session['step'] = 'pre_process'
             request.session['original_obj'] = original_obj.pk
 
             return render(request, template_name='source_plag/start_plag.html')
         else:
             return HttpResponse("Invalid values")
+
+    return HttpResponse("We are supposed to recieve a post")
 
 
 def multistep_process(request):
@@ -79,24 +82,15 @@ def multistep_process(request):
     suspicious_data = []
     suspicious_filenames = []
     suspicious_obj = Suspicious.objects.filter(corpus=corpus_obj)
-    print(original_obj)
-    print(original_obj.display_text_file_orig())
     for sus in suspicious_obj:
         suspicious_filenames.append(sus)
         suspicious_data.append(sus.display_text_file_sus())
 
     if step == 'pre_process':
-
         ## FIRST EXTERNAL METHOD
         print("PREPROCESSING.............................")
         pre_process = Source_Main.NGRAM_pre_proc(original_obj.display_text_file_orig(), suspicious_data)
         request.session['pre_process'] = pre_process
-        print(original_obj.display_text_file_orig())
-        print(pre_process[0])
-        # print(pre_process[1][0])
-        # print(suspicious_data[0])
-        # print(pre_process[1][1])
-        # print(suspicious_data[1])
         return JsonResponse({'current_step': step, 'status': 'ok', 'result': pre_process})
 
     if step == 'ngram':
@@ -106,8 +100,51 @@ def multistep_process(request):
         ngram = Source_N_Gram_Matching.all_n_gram_execution(pre_process[0], pre_process[1], original_obj,
                                                             suspicious_filenames)
 
-        x = render_to_string("source_plag/ngram.html", {'ngrams': ngram})
+        ngram2 = []
+        for i, s in enumerate(suspicious_filenames):
+            slist = []
+            for row in ngram:
+                slist.append(row[i])
+            ngram2.append([s, slist])
+        print(ngram2)
+        ngram_result = render_to_string("source_plag/ngram.html", {'ngrams': ngram2})
+        return JsonResponse({'current_step': step, 'status': 'ok', 'result': ngram_result})
 
-        return JsonResponse({'current_step': step, 'status': 'ok', 'result': x})
+    if step == 'pre_process_tfidf':
+        print("tfidf_pre_processing -------------------------")
+        pre_process_tfidf = Source_Main.TFIDF_pre_proc(original_obj.display_text_file_orig(), suspicious_data)
+        request.session['pre_process_tfidf'] = pre_process_tfidf
+
+        return JsonResponse({'current_step': step, 'status': 'ok', 'pre_process_tfidf': pre_process_tfidf})
+
+    if step == 'tfidf':
+        pre_process_tfidf = request.session['pre_process_tfidf']
+        tfidf = Source_TFIDF_gensim.TFIDF_execution(pre_process_tfidf, original_obj, suspicious_filenames)
+        tlist = []
+        for i in range(0, len(suspicious_filenames)):
+            tlist.append([suspicious_filenames[i], tfidf[i]])
+
+        print(tlist)
+        tfidf_result = render_to_string("source_plag/tfidf.html", {"tfidfs": tlist})
+        return JsonResponse({'current_step': step, 'status': 'ok', 'tfidf_result': tfidf_result})
+
+    if step == 'pre_process_wordnet':
+        print("wordnet pre_process------------------------------------")
+        pre_process_wordnet = Source_Main.WORDNET_pre_proc(original_obj.display_text_file_orig(), suspicious_data)
+        request.session['pre_process_wordnet'] = pre_process_wordnet
+        return JsonResponse({'current_step': step, 'status': 'ok', 'pre_process_tfidf': pre_process_wordnet})
+
+    if step == 'wordnet':
+        pre_process_wordnet = request.session['pre_process_wordnet']
+        wordnet = Source_Wordnet_Synsets.execute_WORDNET(pre_process_wordnet[0], original_obj, pre_process_wordnet[1],
+                                                         suspicious_filenames)
+        wlist = []
+        print(len(wordnet))
+        print(len(suspicious_filenames))
+        for i in range(0, len(suspicious_filenames)):
+            wlist.append([suspicious_filenames[i], wordnet[i]])
+
+        wordnet_result = render_to_string("source_plag/wordnet.html", {"wordnets": wlist})
+        return JsonResponse({'current_step': step, 'status': 'ok', 'wordnet_result': wordnet_result})
 
     return JsonResponse({'current_step': 'unspecified', 'status': 'error'})

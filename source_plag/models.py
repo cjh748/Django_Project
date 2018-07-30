@@ -23,8 +23,8 @@ class Original(models.Model):
     original_file = models.FileField()
 
     def display_text_file_orig(self):
-        with codecs.open(self.original_file.path, encoding='utf-8', errors='ignore') as fp:
-            return fp.read().replace('\n', '')
+        with codecs.open(self.original_file.path, 'r', encoding='utf-8-sig') as fp:
+            return fp.read()
 
     def __str__(self):
         return self.original_file_name
@@ -36,8 +36,8 @@ class Suspicious(models.Model):
     suspicious_file = models.FileField()
 
     def display_text_file_sus(self):
-        with codecs.open(self.suspicious_file.path, encoding='utf-8', errors='ignore') as fp:
-            return fp.read().replace('\n', '')
+        with codecs.open(self.suspicious_file.path, 'r', encoding='utf-8-sig') as fp:
+            return fp.read()
 
     def __str__(self):
         return self.suspicious_file_names
