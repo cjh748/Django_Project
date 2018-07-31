@@ -1,4 +1,6 @@
 from TextPreprocessing import Pre_Processing
+
+
 # ===================
 # File Pre-Processing
 # ===================
@@ -73,18 +75,12 @@ def LCS_pre_proc(original_corpora, suspicious_corpus):
     original = Pre_Processing.lower_case(original_corpora)
     original = Pre_Processing.remove_punctuation(original)
     original = Pre_Processing.clean_text(original)
-    original = Pre_Processing.tokenization(original)
-    original = Pre_Processing.remove_stopwords(original)
-    original = Pre_Processing.lemmatize_words(original)
     pre_processed_files.append(original)
 
     for text in suspicious_corpus:
         suspicious = Pre_Processing.lower_case(text)
         suspicious = Pre_Processing.remove_punctuation(suspicious)
         suspicious = Pre_Processing.clean_text(suspicious)
-        suspicious = Pre_Processing.tokenization(suspicious)
-        suspicious = Pre_Processing.remove_stopwords(suspicious)
-        suspicious = Pre_Processing.lemmatize_words(suspicious)
         sus.append(suspicious)
     pre_processed_files.append(sus)
     print("LCS Pre-Processing Complete")

@@ -6,11 +6,8 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from source_plag.forms import UploadFileForm, OriginalSelectionForm
 from .models import Corpus, Original, Suspicious
-from source_plag.Python_Code import Source_Main, Source_N_Gram_Matching, Source_TFIDF_gensim, Source_Wordnet_Synsets
-
-
-def source_plagiarism(request):
-    return render(request, 'html/source_plag.html')
+from source_plag.Python_Code import Source_Main, Source_N_Gram_Matching, Source_TFIDF_gensim, Source_Wordnet_Synsets, \
+    Source_LCS_Substring, Source_LCS_Subsequence
 
 
 class CorpusDetailView(DetailView):
@@ -87,31 +84,23 @@ def multistep_process(request):
         suspicious_data.append(sus.display_text_file_sus())
 
     if step == 'pre_process':
-        ## FIRST EXTERNAL METHOD
-        print("PREPROCESSING.............................")
         pre_process = Source_Main.NGRAM_pre_proc(original_obj.display_text_file_orig(), suspicious_data)
         request.session['pre_process'] = pre_process
         return JsonResponse({'current_step': step, 'status': 'ok', 'result': pre_process})
 
     if step == 'ngram':
-        print("ngram ----------------------------------------------------")
         pre_process = request.session['pre_process']
-        ## SECOND EXTERNAL METHOD
-        ngram = Source_N_Gram_Matching.all_n_gram_execution(pre_process[0], pre_process[1], original_obj,
-                                                            suspicious_filenames)
-
+        ngram = Source_N_Gram_Matching.all_n_gram_execution(pre_process[0], pre_process[1])
         ngram2 = []
         for i, s in enumerate(suspicious_filenames):
             slist = []
             for row in ngram:
                 slist.append(row[i])
             ngram2.append([s, slist])
-        print(ngram2)
         ngram_result = render_to_string("source_plag/ngram.html", {'ngrams': ngram2})
         return JsonResponse({'current_step': step, 'status': 'ok', 'result': ngram_result})
 
     if step == 'pre_process_tfidf':
-        print("tfidf_pre_processing -------------------------")
         pre_process_tfidf = Source_Main.TFIDF_pre_proc(original_obj.display_text_file_orig(), suspicious_data)
         request.session['pre_process_tfidf'] = pre_process_tfidf
 
@@ -119,32 +108,43 @@ def multistep_process(request):
 
     if step == 'tfidf':
         pre_process_tfidf = request.session['pre_process_tfidf']
-        tfidf = Source_TFIDF_gensim.TFIDF_execution(pre_process_tfidf, original_obj, suspicious_filenames)
+        tfidf = Source_TFIDF_gensim.TFIDF_execution(pre_process_tfidf)
         tlist = []
         for i in range(0, len(suspicious_filenames)):
             tlist.append([suspicious_filenames[i], tfidf[i]])
 
-        print(tlist)
         tfidf_result = render_to_string("source_plag/tfidf.html", {"tfidfs": tlist})
         return JsonResponse({'current_step': step, 'status': 'ok', 'tfidf_result': tfidf_result})
 
     if step == 'pre_process_wordnet':
-        print("wordnet pre_process------------------------------------")
         pre_process_wordnet = Source_Main.WORDNET_pre_proc(original_obj.display_text_file_orig(), suspicious_data)
         request.session['pre_process_wordnet'] = pre_process_wordnet
         return JsonResponse({'current_step': step, 'status': 'ok', 'pre_process_tfidf': pre_process_wordnet})
 
     if step == 'wordnet':
         pre_process_wordnet = request.session['pre_process_wordnet']
-        wordnet = Source_Wordnet_Synsets.execute_WORDNET(pre_process_wordnet[0], original_obj, pre_process_wordnet[1],
-                                                         suspicious_filenames)
+        wordnet = Source_Wordnet_Synsets.execute_WORDNET(pre_process_wordnet[0], pre_process_wordnet[1])
         wlist = []
-        print(len(wordnet))
-        print(len(suspicious_filenames))
         for i in range(0, len(suspicious_filenames)):
             wlist.append([suspicious_filenames[i], wordnet[i]])
 
         wordnet_result = render_to_string("source_plag/wordnet.html", {"wordnets": wlist})
         return JsonResponse({'current_step': step, 'status': 'ok', 'wordnet_result': wordnet_result})
+
+    if step == 'pre_process_lcs':
+        pre_process_lcs = Source_Main.LCS_pre_proc(original_obj.display_text_file_orig(), suspicious_data)
+        request.session['pre_process_lcs'] = pre_process_lcs
+        return JsonResponse({'current_step': step, 'status': 'ok', 'pre_process_lcs': pre_process_lcs})
+
+    if step == 'lcs':
+        pre_process_lcs = request.session['pre_process_lcs']
+        lcs_list = []
+        for i in range(0, len(suspicious_filenames)):
+            lcs_list.append([suspicious_filenames[i],
+                             Source_LCS_Substring.Longest_Common_Substring(pre_process_lcs[0], pre_process_lcs[1][i]),
+                             Source_LCS_Subsequence.Longest_Common_Subsequence(pre_process_lcs[0],
+                                                                               pre_process_lcs[1][i])])
+        lcs_result = render_to_string("source_plag/lcs.html", {"lcss": lcs_list})
+        return JsonResponse({'current_step': step, 'status': 'ok', 'lcs_result': lcs_result})
 
     return JsonResponse({'current_step': 'unspecified', 'status': 'error'})

@@ -4,11 +4,7 @@ from django.contrib.auth import logout
 
 
 def menu(request):
-    return render(request, 'html/menu.html')
-
-
-# def log_out(request):
-#     return render(request, 'html/login.html', {'logout': logout(request)})
+    return render(request, 'menu.html')
 
 
 def logout_view(request):

@@ -34,9 +34,3 @@ class SignUpForm(forms.ModelForm):
         data = self.cleaned_data
         # use your logic for non field errors
         return data
-
-
-# class LogInForm(forms.Form):
-#     class Meta:
-#         model = get_user_model()
-#         fields = ('username', 'password')

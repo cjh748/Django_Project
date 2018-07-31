@@ -1,7 +1,7 @@
 import gensim
 
 
-def TFIDF_execution(filtered_text, original_filename, suspicious_filenames):
+def TFIDF_execution(filtered_text):
     original_file = filtered_text[0]
     suspicious_files = filtered_text[1]
 

@@ -1,6 +1,7 @@
 import string
 import re
 import nltk
+#from enchant.checker import SpellChecker
 from collections import Counter
 #from Text_Pre_Processing import Norvig_Spell_Check
 #WORDS = Counter(Norvig_Spell_Check.words(open('big.txt', encoding='Latin-1').read()))
@@ -69,8 +70,8 @@ def lower_case(text):
 #         error.replace(suggested_word)  # Look here
 #     spell_checked = checker.get_text()
 #     return spell_checked
-#
-#
+
+
 #
 # def spell_checker2(text):
 #     x = tokenization(text)

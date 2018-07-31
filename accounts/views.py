@@ -17,19 +17,18 @@ from django.contrib.auth.models import User
 
 
 def index(request):
-    return render(request, 'html/index.html')
+    return render(request, 'index.html')
 
 
 def to_login_page(request):
-    return render(request, 'html/login.html')
+    return render(request, 'login.html')
 
 
 def to_register_page(request):
-    return render(request, 'html/sign_up.html')
+    return render(request, 'sign_up.html')
 
 
 def sign_up(request):
-    form = SignUpForm
     if request.method == 'POST':
         form = SignUpForm(request.POST, request.FILES)
         #email = form.cleaned_data.get('email')
@@ -44,7 +43,7 @@ def sign_up(request):
 
         else:
             print("form invalid")
-    return render(request, 'html/sign_up.html')
+    return render(request, 'sign_up.html')
 
 
 def log_in(request):
@@ -60,10 +59,10 @@ def log_in(request):
                 return redirect('menu')
         else:
             print("Invalid login details for User: " + username + ", Pass: " + password)
-            return render(request, 'html/login.html')
+            return render(request, 'login.html')
     else:
         print("Login page started...")
-        return render(request, 'html/login.html')
+        return render(request, 'login.html')
 
 
 def send_account_activation_email(request, user):

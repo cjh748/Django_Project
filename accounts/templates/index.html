@@ -1,0 +1,48 @@
+{% extends 'html/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+{% block add_head %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+<body>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <span class="rounded">
+            <div class="col-md-6" id="pic-container">
+                <img src="{% static 'images/plagiarism_print.jpg' %}" id="plag_pic">
+                <img src="{% static 'images/docpen_icon22.jpg' %}" id="pen">
+                <div class="jumbotron">
+                    <p id="paragraph">
+                        TextLeak is a easy to use system to detect plagiarism between a piece of source documentation
+                        and a
+                        corpus,
+                        an internal corpus of documents, or plagiarism between a corpus and an external Wikipedia
+                        source.
+                        The
+                        external
+                        page will be determined through a process of topic evaluation through scanning the semantics of
+                        the
+                        documents
+                        in the corpus.
+                    </p>
+                </div>
+            </div>
+                </span>
+            <div class="col-md-6" id="button-column">
+                <h2 id="registered">Have you registered with us?</h2>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'menu' %}" class="btn btn-primary btn-lg btn-block"
+                       id="button">Login</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg btn-block"
+                       id="button">Login</a>
+                {% endif %}
+                <a href="{% url 'signup' %}" class="btn btn-primary btn-lg btn-block"
+                   id="button">Register</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

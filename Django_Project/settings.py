@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', 'localhost', '172.22.84.244
 # Application definition
 
 INSTALLED_APPS = [
+    'internal_plag',
     'source_plag',
     'menu',
     'accounts',

@@ -27,36 +27,17 @@ def similarity_generator(str1, str2, n_gram):
     return similarity_score
 
 
-def single_n_gram_execution(str1, str2, n_gram, original_filename, suspicious_filenames):
-    if n_gram == 1:
-        n_name = 'unigram'
-    elif n_gram == 2:
-        n_name = 'bigram'
-    elif n_gram == 3:
-        n_name = 'trigram'
-    elif n_gram == 4:
-        n_name = 'quadgram'
-    elif n_gram == 5:
-        n_name = 'quingram'
-
-    print("===================================================================="
-          "=============================")
-    print("Execution of " , n_name ," overlap for original file: " ,
-          original_filename , " achieved a similarity score of: ")
-    print("===================================================================="
-          "=============================")
-
+def single_n_gram_execution(str1, str2, n_gram):
     similarities = []
     for i in range(len(str2)):
         similarity_score = similarity_generator(str1, str2[i], n_gram)
         similarities.append(similarity_score)
-        print(similarity_score)
 
     return similarities
 
 
-def all_n_gram_execution(str1, str2, original_filename, suspicious_filename):
+def all_n_gram_execution(str1, str2):
     retval = []
     for i in range(1, 6):
-        retval.append(single_n_gram_execution(str1, str2, i, original_filename, suspicious_filename))
+        retval.append(single_n_gram_execution(str1, str2, i))
     return retval

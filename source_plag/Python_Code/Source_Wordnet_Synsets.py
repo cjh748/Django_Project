@@ -72,10 +72,9 @@ def symmetric_sentence_similarity(sentence1, sentence2):
     return (sentence_similarity(sentence1, sentence2) + sentence_similarity(sentence2, sentence1)) / 2
 
 
-def execute_WORDNET(original_corpora, original_filename, suspicious_corpus, suspicious_filenames):
+def execute_WORDNET(original_corpora, suspicious_corpus):
     sym_similarities = []
     for i in range(0, len(suspicious_corpus)):
-        print("Complete: " + str(i))
-        sym_similarities.append(round(symmetric_sentence_similarity(original_corpora, suspicious_corpus[i]) * 100,2))
+        sym_similarities.append(round(symmetric_sentence_similarity(original_corpora, suspicious_corpus[i]) * 100, 2))
 
     return sym_similarities
