@@ -7,15 +7,14 @@ from django.urls import reverse
 
 
 class Corpus(models.Model):
-    user = models.ForeignKey(User, on_delete=CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=CASCADE, null=True, related_name="internal_corpus")
     corpus_name = models.CharField(max_length=50, unique=True)
 
     def get_absolute_url(self):
-        return reverse('show-corpus', kwargs={'pk': self.pk})
+        return reverse('int-show-corpus', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.corpus_name
-
 
 class Suspicious(models.Model):
     corpus = models.ForeignKey(Corpus, on_delete=CASCADE)
@@ -28,3 +27,4 @@ class Suspicious(models.Model):
 
     def __str__(self):
         return self.suspicious_file_names
+

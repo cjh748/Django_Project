@@ -1,0 +1,20 @@
+#progress_container{
+    position: relative;
+    width: 100%;
+}
+
+#bar {
+    height: 1.7em;
+    width: 100%;
+    background-color: white;
+    border: 5px black solid;
+    border-radius: 50px;
+}
+
+#progress {
+    height: 1em;
+    width: 0;
+    background: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);;
+    border-radius: 50px;
+    transition: 3s ease;
+}

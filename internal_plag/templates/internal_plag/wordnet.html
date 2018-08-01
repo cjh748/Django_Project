@@ -1,0 +1,19 @@
+<h2 style="text-align: center">WordNet Synset Extraction</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Suspect Filename</th>
+        <th>Percentage Similarity</th>
+    </thead>
+    <tbody>
+    {% for w in wordnets %}
+        <tr>
+            <td>{{ w.0 }} </td>
+                <td {% if w.1 >= 90 %} style="color: red"
+                {% elif w.1 < 90 and w.1 > 75 %} style="color: yellow"
+                {% else %} style="color: #4CAF50"
+                {% endif %}>{{ w.1 }}%</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

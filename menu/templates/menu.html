@@ -17,12 +17,9 @@
             <a href="{% url 'source_plagiarism' %}"><input type="button"
                                                            class="btn btn-default btn-rounded waves-effect waves-light"
                                                            value="Source Plagiarism"/></a>
-            <a href="#"><input type="button"
-                               class="btn btn-default btn-rounded waves-effect waves-light"
-                               value="Internal Plagiarism"/></a>
-            <a href="#"><input type="button"
-                               class="btn btn-default btn-rounded waves-effect waves-light"
-                               value="External Plagiarism"/></a>
+            <a href="{% url 'internal_plagiarism' %}"><input type="button"
+                                                             class="btn btn-default btn-rounded waves-effect waves-light"
+                                                             value="Internal Plagiarism"/></a>
         </div>
     </div>
 {% endblock %}

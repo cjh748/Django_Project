@@ -1,0 +1,27 @@
+{% extends "html/base.html" %}
+{% load static %}
+{% block add_head %}
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock %}
+{% block logout %}
+    <a href="{% url 'int-list-corpus' %}" class="button" type="button"
+       style="vertical-align:middle; background-color: red; width: 7%;"><span>Back</span></a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="button" type="button"
+           style="vertical-align:middle; background-color: lightseagreen; width: 7%;"><span>Logout</span></a>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="jumbotron" >
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{ form.as_p }}
+                <tr>
+                    <td colspan="2" align="right"><input type="submit" value="Create"></td>
+
+                </tr>
+            </table>
+        </form>
+    </div>
+{% endblock %}
