@@ -30,7 +30,6 @@ $(document).ready(function () {
                                                 $.get("/internal_plag/multistep", {'step': 'lcs-substring'}, function (resp) {
                                                     $("#lcs-string").html(resp.lcs_result);
 
-                                                    $.get("/internal_plag/multistep/", {'step': 'pre_process_lcs'}, function (resp) {
                                                         $.get("/internal_plag/multistep", {'step': 'lcs-subsequence'}, function (resp) {
                                                             $("#lcs-sequence").html(resp.lcs_result);
 
