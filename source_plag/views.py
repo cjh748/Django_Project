@@ -61,7 +61,6 @@ def start_detection(request):
         form = OriginalSelectionForm(data=request.POST)
         if form.is_valid():
             original_obj = form.cleaned_data['originals']
-            # corpus_obj = original_obj.corpus
             request.session['step'] = 'pre_process'
             request.session['original_obj'] = original_obj.pk
 
@@ -119,7 +118,7 @@ def multistep_process(request):
     if step == 'pre_process_wordnet':
         pre_process_wordnet = Source_Main.WORDNET_pre_proc(original_obj.display_text_file_orig(), suspicious_data)
         request.session['pre_process_wordnet'] = pre_process_wordnet
-        return JsonResponse({'current_step': step, 'status': 'ok', 'pre_process_tfidf': pre_process_wordnet})
+        return JsonResponse({'current_step': step, 'status': 'ok', 'pre_process_wordnet': pre_process_wordnet})
 
     if step == 'wordnet':
         pre_process_wordnet = request.session['pre_process_wordnet']

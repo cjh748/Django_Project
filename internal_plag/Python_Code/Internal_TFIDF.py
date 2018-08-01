@@ -3,9 +3,7 @@ import warnings
 warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
 
 
-def TFIDF_execution(filtered_text, suspicious_filenames):
-    original_file = filtered_text[0]
-    suspicious_files = filtered_text[1]
+def TFIDF_execution(suspicious_files, i):
 
     # CREATE DICTIONARY
     dictionary = gensim.corpora.Dictionary(suspicious_files)
@@ -16,10 +14,8 @@ def TFIDF_execution(filtered_text, suspicious_filenames):
     tfidf_model = gensim.models.TfidfModel(all_words)
     similarities = gensim.similarities. \
         Similarity(str(dictionary_size), tfidf_model[all_words], dictionary_size)
-    bow_compare = dictionary.doc2bow(original_file)
-    #print("bow_compare: " + str(bow_compare))
+    bow_compare = dictionary.doc2bow(suspicious_files[i])
     query = tfidf_model[bow_compare]
-    #print("query: " + str(query))
     cosine_similarity = similarities[query]
 
     # PRINT PERCENTAGE SIMILARITIES

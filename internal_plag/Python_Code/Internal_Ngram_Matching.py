@@ -28,16 +28,7 @@ def similarity_generator(str1, str2, n_gram):
 
 
 def single_n_gram_execution(str1, str2, n_gram):
-    similarities = []
-    for i in range(len(str2)):
-        similarities.append(similarity_generator(str1, str2[i], n_gram))
-
+    similarities = similarity_generator(str1, str2, n_gram)
     return similarities
 
 
-def all_n_gram_execution(str1, str2):
-    all_ngrams = []
-    for i in range(1, 6):
-        all_ngrams.append(single_n_gram_execution(str1, str2, i))
-
-    return all_ngrams

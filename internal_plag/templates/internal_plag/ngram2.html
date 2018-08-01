@@ -1,16 +1,15 @@
-<h2 style="text-align: center">Term Frequency - Inverse Document Frequency (TFIDF)</h2>
+<h2 style="text-align: center">Bigram Overlap</h2>
 <table class="table table-striped">
     <thead>
     <tr>
         <th>Suspicious Files</th>
-        {% for s in tfidfs %}
-            <th style="rotation: 90deg">{{ s.0 }}</th>
+        {% for s in ngrams2 %}
+            <th style="rotation: 90deg">s.0</th>
         {% endfor %}
     </thead>
     <tbody>
-    {% for s in tfidfs %}
+    {% for s in ngrams1 %}
         <tr>
-
             <td>{{ s.0 }} </td>
             {% for col in s.1 %}
                 <td {% if col > 50 %} style="color: red"

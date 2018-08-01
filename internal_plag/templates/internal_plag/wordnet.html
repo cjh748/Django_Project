@@ -3,16 +3,21 @@
     <thead>
     <tr>
         <th>Suspect Filename</th>
-        <th>Percentage Similarity</th>
+        {% for w in wordnets %}
+            <th style="rotation: 90deg">{{ w.0 }}</th>
+        {% endfor %}
     </thead>
     <tbody>
     {% for w in wordnets %}
         <tr>
             <td>{{ w.0 }} </td>
-                <td {% if w.1 >= 90 %} style="color: red"
-                {% elif w.1 < 90 and w.1 > 75 %} style="color: yellow"
+            {% for col in w.1 %}
+                <td {% if col >= 90 %} style="color: red"
+                {% elif col < 90 and col > 75 %} style="color: yellow"
                 {% else %} style="color: #4CAF50"
-                {% endif %}>{{ w.1 }}%</td>
+                {% endif %}>{{ col }}%
+                </td>
+            {% endfor %}
         </tr>
     {% endfor %}
     </tbody>

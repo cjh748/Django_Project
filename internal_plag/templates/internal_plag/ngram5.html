@@ -1,23 +1,22 @@
-<h2 style="text-align: center">N-Gram Overlap</h2>
+<h2 style="text-align: center">Quingram Overlap</h2>
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Suspect Filename</th>
-        <th>Unigram</th>
-        <th>Bigram</th>
-        <th>Trigram</th>
-        <th>Quadgram</th>
-        <th>Quingram</th>
+        <th>Suspicious Files</th>
+        {% for s in ngrams5 %}
+            <th style="rotation: 90deg">s.0</th>
+        {% endfor %}
     </thead>
     <tbody>
-    {% for s in ngrams %}
+    {% for s in ngrams1 %}
         <tr>
             <td>{{ s.0 }} </td>
             {% for col in s.1 %}
                 <td {% if col > 50 %} style="color: red"
                 {% elif col <= 50 and col > 30 %} style="color: yellow"
                 {% else %} style="color: #4CAF50"
-                {% endif %}>{{ col }}%</td>
+                {% endif %}>{{ col }}%
+                </td>
             {% endfor %}
         </tr>
     {% endfor %}
