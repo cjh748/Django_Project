@@ -2,15 +2,15 @@ i = 2;
 $(document).ready(function () {
     $.get("/internal_plag/multistep/", {'step': 'pre_process'}, function (resp) {
         $.get("/internal_plag/multistep", {'step': 'ngram1'}, function (resp) {
-            $("#ngram1").html(resp.result);
+            $("#ngram1").html(resp.result1);
             $.get("/internal_plag/multistep", {'step': 'ngram2'}, function (resp) {
-                $("#ngram2").html(resp.result);
+                $("#ngram2").html(resp.result2);
                 $.get("/internal_plag/multistep", {'step': 'ngram3'}, function (resp) {
-                    $("#ngram3").html(resp.result);
+                    $("#ngram3").html(resp.result3);
                     $.get("/internal_plag/multistep", {'step': 'ngram4'}, function (resp) {
-                        $("#ngram4").html(resp.result);
+                        $("#ngram4").html(resp.result4);
                         $.get("/internal_plag/multistep", {'step': 'ngram5'}, function (resp) {
-                            $("#ngram5").html(resp.result);
+                            $("#ngram5").html(resp.result5);
 
                             progress();
 
@@ -30,11 +30,11 @@ $(document).ready(function () {
                                                 $.get("/internal_plag/multistep", {'step': 'lcs-substring'}, function (resp) {
                                                     $("#lcs-string").html(resp.lcs_result);
 
-                                                        $.get("/internal_plag/multistep", {'step': 'lcs-subsequence'}, function (resp) {
-                                                            $("#lcs-sequence").html(resp.lcs_result);
+                                                    $.get("/internal_plag/multistep", {'step': 'lcs-subsequence'}, function (resp) {
+                                                        $("#lcs-sequence").html(resp.lcs_result);
 
-                                                            progress();
-                                                        });
+                                                        progress();
+
                                                     });
                                                 });
                                             });
