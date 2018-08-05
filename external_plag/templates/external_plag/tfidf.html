@@ -1,0 +1,25 @@
+<h2 style="text-align: center">Term Frequency - Inverse Document Frequency (TFIDF)</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Suspicious Files</th>
+        {% for s in tfidfs %}
+            <th style="rotation: 90deg">{{ s.0 }}</th>
+        {% endfor %}
+    </thead>
+    <tbody>
+    {% for s in tfidfs %}
+        <tr>
+
+            <td>{{ s.0 }} </td>
+            {% for col in s.1 %}
+                <td {% if col > 50 %} style="color: red"
+                {% elif col <= 50 and col > 30 %} style="color: yellow"
+                {% else %} style="color: #4CAF50"
+                {% endif %}>{{ col }}%
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

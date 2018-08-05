@@ -1,0 +1,25 @@
+<h2 style="text-align: center">Predicted Topic: <em>PageRank</em></h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Suspect Filename</th>
+        <th>Unigram</th>
+        <th>Bigram</th>
+        <th>Trigram</th>
+        <th>Quadgram</th>
+        <th>Quingram</th>
+    </thead>
+    <tbody>
+    {% for s in ngrams_pagerank %}
+        <tr>
+            <td>{{ s.0 }} </td>
+            {% for col in s.1 %}
+                <td {% if col > 50 %} style="color: red"
+                {% elif col <= 50 and col > 30 %} style="color: yellow"
+                {% else %} style="color: #4CAF50"
+                {% endif %}>{{ col }}%</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+<h2 style="text-align: center">Longest Common Substring</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Suspect Filename</th>
+        {% for s in lcss_string %}
+            <th style="rotation: 90deg">{{ s.0 }}</th>
+        {% endfor %}
+    </thead>
+    <tbody>
+    {% for l in lcss_string %}
+        <tr>
+            <td>{{ l.0 }} </td>
+            {% for col in l.1 %}
+                <td {% if col >= 5 %} style="color: red"
+                {% elif col == 4 %} style="color: yellow"
+                {% else %} style="color: #4CAF50"
+                {% endif %}>{{ col }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -16,6 +16,7 @@ class Corpus(models.Model):
     def __str__(self):
         return self.corpus_name
 
+
 class Suspicious(models.Model):
     corpus = models.ForeignKey(Corpus, on_delete=CASCADE)
     suspicious_file_names = models.CharField(max_length=50, unique=True)

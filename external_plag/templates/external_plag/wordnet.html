@@ -1,0 +1,24 @@
+<h2 style="text-align: center">WordNet Synset Extraction</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Suspect Filename</th>
+        {% for w in wordnets %}
+            <th style="rotation: 90deg">{{ w.0 }}</th>
+        {% endfor %}
+    </thead>
+    <tbody>
+    {% for w in wordnets %}
+        <tr>
+            <td>{{ w.0 }} </td>
+            {% for col in w.1 %}
+                <td {% if col >= 90 %} style="color: red"
+                {% elif col < 90 and col > 75 %} style="color: yellow"
+                {% else %} style="color: #4CAF50"
+                {% endif %}>{{ col }}%
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
