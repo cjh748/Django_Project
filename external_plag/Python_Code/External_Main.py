@@ -80,13 +80,16 @@ def TFIDF_pre_proc(original_corpus, suspicious_corpus):
     return pre_processed_files
 
 
-def LCS_pre_proc(original_corpora, suspicious_corpus):
+def LCS_pre_proc(original_corpus, suspicious_corpus):
     pre_processed_files = []
     sus = []
-    original = Pre_Processing.lower_case(original_corpora)
-    original = Pre_Processing.remove_punctuation(original)
-    original = Pre_Processing.clean_text(original)
-    pre_processed_files.append(original)
+    orig = []
+    for text in original_corpus:
+        original = Pre_Processing.lower_case(text)
+        original = Pre_Processing.remove_punctuation(original)
+        original = Pre_Processing.clean_text(original)
+        orig.append(original)
+    pre_processed_files.append(orig)
 
     for text in suspicious_corpus:
         suspicious = Pre_Processing.lower_case(text)

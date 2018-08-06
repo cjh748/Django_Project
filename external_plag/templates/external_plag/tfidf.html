@@ -3,23 +3,84 @@
     <thead>
     <tr>
         <th>Suspicious Files</th>
-        {% for s in tfidfs %}
-            <th style="rotation: 90deg">{{ s.0 }}</th>
-        {% endfor %}
+        <th style="rotation: 90deg">Inheritance (OOP)</th>
+        <th style="rotation: 90deg">PageRank</th>
+        <th style="rotation: 90deg">Vector Space Model</th>
+        <th style="rotation: 90deg">Bayes' Theorem</th>
+        <th style="rotation: 90deg">Dynamic Programming</th>
     </thead>
     <tbody>
-    {% for s in tfidfs %}
+    {% for s in tfidfs.0 %}
         <tr>
-
-            <td>{{ s.0 }} </td>
-            {% for col in s.1 %}
-                <td {% if col > 50 %} style="color: red"
-                {% elif col <= 50 and col > 30 %} style="color: yellow"
-                {% else %} style="color: #4CAF50"
-                {% endif %}>{{ col }}%
-                </td>
-            {% endfor %}
+            <td>{{ s.0 }}</td>
+            <td {% if s.1 > 50 %} style="color: red"
+            {% elif s.1 <= 50 and s.1 > 30 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
         </tr>
     {% endfor %}
+    {% for s in tfidfs.1 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td {% if s.1 > 50 %} style="color: red"
+            {% elif s.1 <= 50 and s.1 > 30 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in tfidfs.2 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td {% if s.1 > 50 %} style="color: red"
+            {% elif s.1 <= 50 and s.1 > 30 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in tfidfs.3 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td {% if s.1 > 50 %} style="color: red"
+            {% elif s.1 <= 50 and s.1 > 30 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in tfidfs.4 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td {% if s.1 > 50 %} style="color: red"
+            {% elif s.1 <= 50 and s.1 > 30 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
+        </tr>
+    {% endfor %}
+
+
     </tbody>
 </table>

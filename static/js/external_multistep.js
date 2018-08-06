@@ -28,10 +28,10 @@ $(document).ready(function () {
 
                                             $.get("/external_plag/multistep/", {'step': 'pre_process_lcs'}, function (resp) {
                                                 $.get("/external_plag/multistep", {'step': 'lcs-substring'}, function (resp) {
-                                                    $("#lcs-string").html(resp.lcs_result);
+                                                    $("#lcs-string").html(resp.lcs_substring_result);
 
                                                     $.get("/external_plag/multistep", {'step': 'lcs-subsequence'}, function (resp) {
-                                                        $("#lcs-sequence").html(resp.lcs_result);
+                                                        $("#lcs-sequence").html(resp.lcs_subsequence_result);
 
                                                         progress();
 

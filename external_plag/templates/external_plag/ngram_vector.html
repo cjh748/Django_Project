@@ -15,7 +15,7 @@
             <td>{{ s.0 }} </td>
             {% for col in s.1 %}
                 <td {% if col > 50 %} style="color: red"
-                {% elif col <= 50 and col > 30 %} style="color: yellow"
+                {% elif col <= 50 and col > 30 %} style="color: orange"
                 {% else %} style="color: #4CAF50"
                 {% endif %}>{{ col }}%</td>
             {% endfor %}

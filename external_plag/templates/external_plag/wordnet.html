@@ -1,23 +1,83 @@
-<h2 style="text-align: center">WordNet Synset Extraction</h2>
+<h2 style="text-align: center">Wordnet Synset Extraction</h2>
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Suspect Filename</th>
-        {% for w in wordnets %}
-            <th style="rotation: 90deg">{{ w.0 }}</th>
-        {% endfor %}
+        <th>Suspicious Files</th>
+        <th style="rotation: 90deg">Inheritance (OOP)</th>
+        <th style="rotation: 90deg">PageRank</th>
+        <th style="rotation: 90deg">Vector Space Model</th>
+        <th style="rotation: 90deg">Bayes' Theorem</th>
+        <th style="rotation: 90deg">Dynamic Programming</th>
     </thead>
     <tbody>
-    {% for w in wordnets %}
+    {% for s in wordnets.0 %}
         <tr>
-            <td>{{ w.0 }} </td>
-            {% for col in w.1 %}
-                <td {% if col >= 90 %} style="color: red"
-                {% elif col < 90 and col > 75 %} style="color: yellow"
-                {% else %} style="color: #4CAF50"
-                {% endif %}>{{ col }}%
-                </td>
-            {% endfor %}
+            <td>{{ s.0 }}</td>
+            <td {% if s.1 >= 80 %} style="color: red"
+            {% elif s.1 < 80 and s.1 >= 70 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in wordnets.1 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td {% if s.1 >= 80 %} style="color: red"
+            {% elif s.1 < 80 and s.1 >= 70 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in wordnets.2 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td {% if s.1 >= 80 %} style="color: red"
+            {% elif s.1 < 80 and s.1 >= 70 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in wordnets.3 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td {% if s.1 >= 80 %} style="color: red"
+            {% elif s.1 < 80 and s.1 >= 70 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in wordnets.4 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td {% if s.1 >= 80 %} style="color: red"
+            {% elif s.1 < 80 and s.1 >= 70 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}%
+            </td>
         </tr>
     {% endfor %}
     </tbody>

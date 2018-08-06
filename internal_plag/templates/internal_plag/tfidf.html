@@ -10,7 +10,6 @@
     <tbody>
     {% for s in tfidfs %}
         <tr>
-
             <td>{{ s.0 }} </td>
             {% for col in s.1 %}
                 <td {% if col > 50 %} style="color: red"

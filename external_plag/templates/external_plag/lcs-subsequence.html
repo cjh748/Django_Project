@@ -2,21 +2,82 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Suspect Filename</th>
-        {% for s in lcss_sequence %}
-            <th style="rotation: 90deg">{{ s.0 }}</th>
-        {% endfor %}
+        <th>Suspicious Files</th>
+        <th style="rotation: 90deg">Inheritance (OOP)</th>
+        <th style="rotation: 90deg">PageRank</th>
+        <th style="rotation: 90deg">Vector Space Model</th>
+        <th style="rotation: 90deg">Bayes' Theorem</th>
+        <th style="rotation: 90deg">Dynamic Programming</th>
     </thead>
     <tbody>
-    {% for l in lcss_sequence %}
+    {% for s in lcss_sequence.0 %}
         <tr>
-            <td>{{ l.0 }} </td>
-            {% for col in l.1 %}
-                <td {% if col >= 100 %} style="color: red"
-                {% elif col < 100 and col >= 50 %} style="color: yellow"
-                {% else %} style="color: #4CAF50"
-                {% endif %}>{{ col }}</td>
-            {% endfor %}
+            <td>{{ s.0 }}</td>
+            <td {% if s.1 >= 100 %} style="color: red"
+            {% elif s.1 < 100 and s.1 >= 50 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}
+            </td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in lcss_sequence.1 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td {% if s.1 >= 100 %} style="color: red"
+            {% elif s.1 < 100 and s.1 >= 50 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}
+            </td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in lcss_sequence.2 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td {% if s.1 >= 100 %} style="color: red"
+            {% elif s.1 < 100 and s.1 >= 50 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}
+            </td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in lcss_sequence.3 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td {% if s.1 >= 100 %} style="color: red"
+            {% elif s.1 < 100 and s.1 >= 50 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}
+            </td>
+            <td>-</td>
+        </tr>
+    {% endfor %}
+    {% for s in lcss_sequence.4 %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td {% if s.1 >= 100 %} style="color: red"
+            {% elif s.1 < 100 and s.1 >= 50 %} style="color: orange"
+            {% else %} style="color: #4CAF50"
+            {% endif %}>{{ s.1 }}
+            </td>
         </tr>
     {% endfor %}
     </tbody>
