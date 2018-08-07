@@ -7,4 +7,4 @@ class UploadFileForm(forms.Form):
 
 
 class SuspiciousSelectionForm(forms.Form):
-    corpus = forms.IntegerField(widget=forms.HiddenInput);
+    corpus = forms.IntegerField(widget=forms.HiddenInput)

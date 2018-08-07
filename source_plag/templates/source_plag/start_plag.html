@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
     <link rel="stylesheet" href="{% static 'css/progress.css' %}">
 {% endblock %}
+{% block user_message %}
+    <h2 style="font-family: DatalegreyaDot, fantasy; text-align: center"><strong>Detecting...</strong></h2>
+{% endblock %}
 {% block logout %}
     <a href="{% url 'list-corpus' %}" class="button" type="button"
        style="vertical-align:middle; background-color: red; width: 7%;"><span>Back</span></a>

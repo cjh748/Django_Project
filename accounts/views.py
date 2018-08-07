@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from accounts.forms import SignUpForm
 from django.contrib.auth.forms import forms as login_form
@@ -31,19 +32,13 @@ def to_register_page(request):
 def sign_up(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST, request.FILES)
-        #email = form.cleaned_data.get('email')
         if form.is_valid():
-            # user = User.objects.create(
-            #     email=email,
-            #     is_active=False
-            # )
-            # send_account_activation_email(request, user)
             form.save()
             return index(request)
-
         else:
             print("form invalid")
-    return render(request, 'sign_up.html')
+            messages.error(request, "Error")
+    return render(request,  'sign_up.html')
 
 
 def log_in(request):

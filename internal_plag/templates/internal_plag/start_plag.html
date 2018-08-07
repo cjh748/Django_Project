@@ -4,8 +4,11 @@
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
     <link rel="stylesheet" href="{% static 'css/progress.css' %}">
 {% endblock %}
+{% block user_message %}
+    <h2 style="font-family: DatalegreyaDot, fantasy; text-align: center"><strong>Detecting...</strong></h2>
+{% endblock %}
 {% block logout %}
-    <a href="{% url 'int-list-corpus'  %}" class="button" type="button"
+    <a href="{% url 'int-list-corpus' %}" class="button" type="button"
        style="vertical-align:middle; background-color: red; width: 7%;"><span>Back</span></a>
     {% if user.is_authenticated %}
         <a href="{% url 'logout' %}" class="button" type="button"
@@ -14,9 +17,9 @@
 {% endblock %}
 {% block content %}
     <div class="container" id="progress_container">
-    <div id="bar">
-        <div id="progress"></div>
-    </div>
+        <div id="bar">
+            <div id="progress"></div>
+        </div>
     </div>
     <h2 style="text-align: center"></h2>
     <div class="jumbotron" id="ngram1" style="padding: 10px;"></div>

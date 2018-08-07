@@ -8,20 +8,35 @@ from django.contrib.auth.forms import User as user_auth
 
 class SignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
     bot_protect = forms.CharField(required=False, widget=forms.HiddenInput,
                                   validators=[validators.MaxLengthValidator(0)])
 
-    def clean_email(self):
+    # def clean_email(self):
+    #     email = self.cleaned_data.get('email')
+    #     # check and raise error if other user already exists with given email
+    #     is_exists = User.objects.filter(email=email).exists()
+    #     if is_exists:
+    #         raise forms.ValidationError("User already exists with this email")
+    #     return email
+
+    def clean(self):
+        cleaned_data = super(SignUpForm, self).clean()
         email = self.cleaned_data.get('email')
-        # check and raise error if other user already exists with given email
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+        if password != confirm_password:
+            raise forms.ValidationError(
+                "password and confirm_password does not match")
         is_exists = User.objects.filter(email=email).exists()
         if is_exists:
             raise forms.ValidationError("User already exists with this email")
-        return email
+        return cleaned_data
+
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'password')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password', 'confirm_password')
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -29,8 +44,3 @@ class SignUpForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-    def clean(self):
-        data = self.cleaned_data
-        # use your logic for non field errors
-        return data

@@ -5,7 +5,17 @@
 {% endblock %}
 {% block content %}
     {% if form.errors %}
-        <h5 style="color: red">Login failed, please try again.</h5>
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <p><strong>{{ error }}</strong></p>
+            </div>
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <p><strong>{{ error }}</strong></p>
+            </div>
+        {% endfor %}
     {% endif %}
     <div class="container">
         <div class="row" style="margin-top:20px">
@@ -33,8 +43,13 @@
                                    placeholder="Email">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password" id="password" class="form-control input-lg"
+                            <input type="password" name="confirm_password" id="confirm_Password"
+                                   class="form-control input-lg"
                                    placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control input-lg"
+                                   placeholder="Confirm Password">
                         </div>
                         <span class="button-checkbox">
 				</span>

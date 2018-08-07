@@ -14,7 +14,7 @@
 {% endblock %}
 {% block content %}
     <div style="text-align: center">
-        <table class="paleBlueRows">
+        <table class="paleBlueRows" style="background: powderblue;">
             <thead style="   margin:0;
    padding:0;">
             <tr>
@@ -35,40 +35,12 @@
                 <td>{{ corpus.corpus_name }}</td>
                 <td>
                     {% for original in corpus.original_set.all %}
-                        <button id="myBtn">{{ original }}</button>
-                        <div id="myModal" class="modal">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <span class="close">&times;</span>
-                                    <h2>{{ original }}</h2>
-                                </div>
-                                <div class="modal-body">
-                                    <p>{{ original.display_text_file_orig }}</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <h3>Type: Original documentation with predefined source.</h3>
-                                </div>
-                            </div>
-                        </div>
+                        <h5>{{ original }}</h5>
                     {% endfor %}
                 </td>
                 <td>
                     {% for suspicious in suspicious_files %}
-                        <button id="myBtn1">{{ suspicious }}</button>
-                        <div id="myModal1" class="modal">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <span class="close">&times;</span>
-                                    <h2>{{ suspicious }}</h2>
-                                </div>
-                                <div class="modal-body">
-                                    <p>{{ suspicious.display_text_file_sus }}</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <h3>Type: Original documentation with predefined source.</h3>
-                                </div>
-                            </div>
-                        </div>
+                        <h5>{{ suspicious }}</h5>
                     {% endfor %}
                 </td>
             </tr>
