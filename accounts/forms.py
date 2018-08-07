@@ -1,24 +1,16 @@
 from django import forms
-from django.core import validators
-#from accounts.models import User, UserProfile
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import User as user_auth
+from django.core import validators
+from django.core.validators import RegexValidator
 
 
 class SignUpForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput, validators=[
+        RegexValidator('^(\w+\d+|\d+\w+)+$',
+                       message="Please use a combination of letters and numbers in your password.")])
     confirm_password = forms.CharField(widget=forms.PasswordInput)
     bot_protect = forms.CharField(required=False, widget=forms.HiddenInput,
                                   validators=[validators.MaxLengthValidator(0)])
-
-    # def clean_email(self):
-    #     email = self.cleaned_data.get('email')
-    #     # check and raise error if other user already exists with given email
-    #     is_exists = User.objects.filter(email=email).exists()
-    #     if is_exists:
-    #         raise forms.ValidationError("User already exists with this email")
-    #     return email
 
     def clean(self):
         cleaned_data = super(SignUpForm, self).clean()
@@ -32,7 +24,6 @@ class SignUpForm(forms.ModelForm):
         if is_exists:
             raise forms.ValidationError("User already exists with this email")
         return cleaned_data
-
 
     class Meta:
         model = User

@@ -2,7 +2,6 @@
 {% load static %}
 {% block add_head %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <link rel="script" href="{% static 'js/login.js' %}">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
 {% endblock %}
@@ -48,6 +47,7 @@
             </div>
         </div>
     </div>
+    <link rel="script" href="{% static 'js/login.js' %}">
 {% endblock %}
 {% block user_message %}
 {% endblock %}
