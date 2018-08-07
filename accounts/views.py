@@ -2,7 +2,6 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from accounts.forms import SignUpForm
-from django.contrib.auth.forms import forms as login_form
 from django.conf import settings
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_text
@@ -13,8 +12,6 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-
-#from accounts.models import User
 
 
 def index(request):
@@ -30,8 +27,8 @@ def to_register_page(request):
 
 
 def sign_up(request):
+    form = SignUpForm(request.POST, request.FILES)
     if request.method == 'POST':
-        form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return index(request)
