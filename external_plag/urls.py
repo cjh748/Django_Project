@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^external/(?P<pk>\d+)$', views.CorpusDetailView.as_view(), name='ext-show-corpus'),
     url(r'^external/create$', views.CorpusCreateView.as_view(), name='ext-create-corpus'),
     url(r'^external/list$', views.CorpusListView.as_view(), name='ext-list-corpus'),
+    url(r'^delete-suspicious-external/$', views.delete_suspicious_external, name='delete-suspicious-external'),
     url(r'^external/suspicious/create-new$', views.CreateSuspiciousView.as_view(), name='ext-create-suspicious'),
     url(r'^external/start-detection/$', views.start_detection, name='ext-start-detection'),
     url(r'^multistep/$', views.multistep_process, name='ext-multistep')

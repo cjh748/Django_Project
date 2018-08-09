@@ -2,12 +2,17 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core import validators
 from django.core.validators import RegexValidator
+from django.contrib.auth import authenticate
 
 
 class SignUpForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput, validators=[
+    password = forms.CharField(widget=forms.PasswordInput, max_length=15, validators=[
         RegexValidator('^(\w+\d+|\d+\w+)+$',
                        message="Please use a combination of letters and numbers in your password.")])
+    first_name = forms.CharField(max_length=25)
+    last_name = forms.CharField(max_length=25)
+    username = forms.CharField(max_length=15)
+    email = forms.EmailField(max_length=50)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
     bot_protect = forms.CharField(required=False, widget=forms.HiddenInput,
                                   validators=[validators.MaxLengthValidator(0)])
@@ -35,3 +40,21 @@ class SignUpForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class LogInForm(forms.ModelForm):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ('username', 'password')
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        if not user or not user.is_active:
+            raise forms.ValidationError("Sorry, that login was invalid. Please try again.")
+        return self.cleaned_data
+

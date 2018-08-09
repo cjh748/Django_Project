@@ -35,12 +35,14 @@
                 <td>{{ corpus.corpus_name }}</td>
                 <td>
                     {% for original in corpus.original_set.all %}
-                        <h5>{{ original }}</h5>
+                        <p>{{ original }} <a href="#" class="delete-original" data-pk="{{ original.pk }}">
+                            <span class="glyphicon glyphicon-remove" style="color: red;"></span></a></p>
                     {% endfor %}
                 </td>
                 <td>
                     {% for suspicious in suspicious_files %}
-                        <h5>{{ suspicious }}</h5>
+                        <p>{{ suspicious }} <a href="#" class="delete-suspicious" data-pk="{{ suspicious.pk }}">
+                            <span class="glyphicon glyphicon-remove" style="color: red"></span></a></p>
                     {% endfor %}
                 </td>
             </tr>

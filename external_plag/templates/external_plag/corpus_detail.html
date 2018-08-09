@@ -33,7 +33,9 @@
                 <td>{{ corpus.corpus_name }}</td>
                 <td>
                     {% for suspicious in suspicious_files %}
-                        <h5>{{ suspicious }}</h5>
+                        <p>{{ suspicious }} <a href="#" class="delete-suspicious-external"
+                                               data-pk="{{ suspicious.pk }}">
+                            <span class="glyphicon glyphicon-remove" style="color: red;"></span></a></p>
                     {% endfor %}
                 </td>
             </tr>

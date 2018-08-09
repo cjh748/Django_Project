@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView
+from django.views.decorators.csrf import csrf_exempt
+
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse, Http404
 from source_plag.forms import UploadFileForm, OriginalSelectionForm
 from .models import Corpus, Original, Suspicious
 from source_plag.Python_Code import Source_Main, Source_N_Gram_Matching, Source_TFIDF_gensim, Source_Wordnet_Synsets, \
@@ -19,6 +21,12 @@ class CorpusDetailView(DetailView):
         context['suspicious_files'] = self.get_object().suspicious_set.order_by('id')
         return context
 
+    def get_object(self, queryset=None):
+        obj = super(CorpusDetailView, self).get_object(queryset);
+        if obj.user != self.request.user:
+            raise Http404
+
+        return obj
 
 class CorpusListView(ListView):
     model = Corpus
@@ -54,6 +62,44 @@ class CreateSuspiciousView(CreateView):
     fields = ['corpus', 'suspicious_file_names', 'suspicious_file']
 
     success_url = reverse_lazy('list-corpus')
+
+
+@csrf_exempt
+def delete_original(request):
+    if request.method == 'POST':
+        try:
+            pk = int(request.POST.get('pk', -1))
+            print(pk, request.user)
+            obj = Original.objects.get(corpus__user=request.user, pk=pk)
+            obj.delete()
+            return JsonResponse({'status': 'ok'})
+        except ValueError:
+            import traceback
+            traceback.print_exc()
+            raise Http404
+        except Original.DoesNotExist:
+            import traceback
+            traceback.print_exc()
+            raise Http404
+
+
+@csrf_exempt
+def delete_suspicious(request):
+    if request.method == 'POST':
+        try:
+            pk = int(request.POST.get('pk', -1))
+            print(pk, request.user)
+            obj = Suspicious.objects.get(corpus__user=request.user, pk=pk)
+            obj.delete()
+            return JsonResponse({'status': 'ok'})
+        except ValueError:
+            import traceback
+            traceback.print_exc()
+            raise Http404
+        except Suspicious.DoesNotExist:
+            import traceback
+            traceback.print_exc()
+            raise Http404
 
 
 def start_detection(request):

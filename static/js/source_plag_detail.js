@@ -1,32 +1,52 @@
 $(document).ready(function () {
-// Get the modal
-    var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
 
 
-// Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-// When the user clicks the button, open the modal
-    btn.onclick = function () {
-        console.log("buttonClicked");
-        modal.style.display = "block";
-    };
-
-// When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    };
-
-// When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
+    $(".delete-original").on("click", function (evt) {
+            evt.preventDefault();
+            if (confirm("Are you sure you want to delete that file?")) {
+                var item = $(this);
+                $.post("/source_plag/delete-original/", {'pk': item.data('pk')}, function (resp) {
+                    item.parent().hide()
+                })
+            }
+            return false
         }
-    };
+    );
 
+    $(".delete-suspicious").on("click", function (evt) {
+            evt.preventDefault();
+            if (confirm("Are you sure you want to delete that file?")) {
+                var item = $(this);
+                $.post("/source_plag/delete-suspicious/", {'pk': item.data('pk')}, function (resp) {
+                    item.parent().hide()
+                })
+            }
+            return false
+        }
+    );
 
-    $("#MyModal").modal();
+    $(".delete-suspicious-internal").on("click", function (evt) {
+            evt.preventDefault();
+            if (confirm("Are you sure you want to delete that file?")) {
+                var item = $(this);
+                $.post("/internal_plag/delete-suspicious-internal/", {'pk': item.data('pk')}, function (resp) {
+                    item.parent().hide()
+                })
+            }
+            return false
+        }
+    );
+
+    $(".delete-suspicious-external").on("click", function (evt) {
+            evt.preventDefault();
+            if (confirm("Are you sure you want to delete that file?")) {
+                var item = $(this);
+                $.post("/external_plag/delete-suspicious-external/", {'pk': item.data('pk')}, function (resp) {
+                    item.parent().hide()
+                })
+            }
+            return false
+        }
+    );
 
 });

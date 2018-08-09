@@ -5,7 +5,7 @@
   cursor: pointer;
   outline: none;
   color: #fff;
-  background-color: #4CAF50;
+  background-color: deepskyblue;
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
@@ -51,10 +51,10 @@
   right: 0;
 }
 
-.btn-default:hover {background-color: #3e8e41}
+.btn-default:hover {background-color: teal}
 
 .btn-default:active {
-  background-color: #3e8e41;
+  background-color: teal;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
